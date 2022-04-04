@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QWERTY</title>
+    <%= csrf_meta_tag() %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}>
+    <link rel="icon" href="favicon.ico">
+    <script defer phx-track-static src={Routes.static_path(@conn, "/assets/app.js")}></script>
+  </head>
+  <body>
+    <%= @inner_content %>
+  </body>
+</html>
