@@ -6,7 +6,7 @@ defmodule CodeHuntWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_code_hunt_key",
+    key: "session",
     signing_salt: "aWT88lSp"
   ]
 

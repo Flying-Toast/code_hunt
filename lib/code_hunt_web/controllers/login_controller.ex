@@ -8,7 +8,6 @@ defmodule CodeHuntWeb.LoginController do
   end
 
   def login(conn, params) do
-    host = get_req_header(conn, "host")
     conn =
       if params["from"] do
         put_session(conn, "return_to_url", params["from"])
@@ -16,14 +15,11 @@ defmodule CodeHuntWeb.LoginController do
         conn
       end
 
-    redirect(conn, external: "https://login.case.edu/cas/login?service=#{conn.scheme}://#{host}/auth")
+    redirect(conn, external: "https://login.case.edu/cas/login?service=#{Routes.login_url(conn, :auth)}")
   end
 
   def auth(conn, %{"ticket" => ticket}) do
-    host = get_req_header(conn, "host")
-    service = "#{conn.scheme}://#{host}/auth"
-
-    %{status_code: 200, body: body} = HTTPoison.get!("https://login.case.edu/cas/validate?ticket=#{ticket}&service=#{service}")
+    %{status_code: 200, body: body} = HTTPoison.get!("https://login.case.edu/cas/validate?ticket=#{ticket}&service=#{Routes.login_url(conn, :auth)}")
 
     case String.split(body, "\n", trim: true) do
       ["no"] ->
