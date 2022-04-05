@@ -10,11 +10,11 @@
     <script defer phx-track-static src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>
-    <%= if @caseid do %>
+    <%= if @caseid || @public_page do %>
       <%= @inner_content %>
     <% else %>
       <p>I do not know who you are.</p>
-      <a href={Routes.login_path(@conn, :login)}>login</a>
+      <a href={Routes.login_path(@conn, :login, from: Phoenix.Controller.current_path(@conn))}>login</a>
     <% end %>
   </body>
 </html>

@@ -8,6 +8,7 @@ defmodule CodeHuntWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :assign_caseid
+    plug :private_pages
   end
 
   def assign_caseid(conn, _opts) do
@@ -15,11 +16,14 @@ defmodule CodeHuntWeb.Router do
     assign(conn, :caseid, caseid)
   end
 
+  def private_pages(conn, _opts) do
+    assign(conn, :public_page, false)
+  end
+
   scope "/", CodeHuntWeb do
     pipe_through :browser
 
     get "/", PageController, :index
-
     get "/login", LoginController, :login
     get "/auth", LoginController, :auth
   end
