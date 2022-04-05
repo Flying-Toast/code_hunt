@@ -13,8 +13,8 @@
     <%= if @caseid || @public_page do %>
       <%= @inner_content %>
     <% else %>
-      <p>I do not know who you are.</p>
-      <a href={Routes.login_path(@conn, :login, from: Phoenix.Controller.current_path(@conn))}>login</a>
+      <p>I don't know who you are.</p>
+      <a href={Routes.login_path(@conn, :login, from: Phoenix.Controller.current_path(@conn))}>Login</a>
     <% end %>
   </body>
 </html>
