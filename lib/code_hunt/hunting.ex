@@ -36,4 +36,8 @@ defmodule CodeHunt.Hunting do
     |> CodeDrop.changeset(%{claimed_by: claimer, claim_date: DateTime.now!("Etc/UTC")})
     |> Repo.update()
   end
+
+  def claimed_codes_count(claimed_by) do
+    Repo.one(from c in CodeDrop, where: c.claimed_by == ^claimed_by, select: count())
+  end
 end
