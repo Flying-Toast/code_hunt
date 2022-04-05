@@ -5,9 +5,9 @@ defmodule GenerateCodesheet do
   def make_one() do
     {:ok, drop} = CodeHunt.Hunting.create_code_drop()
 
-    # TODO: make it a url with _url helper
-    drop.secret_id
-    |> Base.url_encode64()
+    encoded = Base.url_encode64(drop.secret_id)
+
+    CodeHuntWeb.Router.Helpers.code_drop_url(CodeHuntWeb.Endpoint, :claim, encoded)
     |> EQRCode.encode()
     |> EQRCode.svg(width: 175)
   end
