@@ -4,26 +4,25 @@ defmodule CodeHuntWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_live_flash
     plug :put_root_layout, {CodeHuntWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :assign_caseid
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  def assign_caseid(conn, _opts) do
+    caseid = Plug.Conn.get_session(conn, :caseid)
+    assign(conn, :caseid, caseid)
   end
 
   scope "/", CodeHuntWeb do
     pipe_through :browser
 
     get "/", PageController, :index
-  end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", CodeHuntWeb do
-  #   pipe_through :api
-  # end
+    get "/login", LoginController, :login
+    get "/auth", LoginController, :auth
+  end
 
   # Enables LiveDashboard only for development
   #
@@ -39,18 +38,6 @@ defmodule CodeHuntWeb.Router do
       pipe_through :browser
 
       live_dashboard "/dashboard", metrics: CodeHuntWeb.Telemetry
-    end
-  end
-
-  # Enables the Swoosh mailbox preview in development.
-  #
-  # Note that preview only shows emails that were sent by the same
-  # node running the Phoenix server.
-  if Mix.env() == :dev do
-    scope "/dev" do
-      pipe_through :browser
-
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
 end
