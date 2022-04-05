@@ -7,25 +7,37 @@ defmodule CodeHuntWeb.Router do
     plug :put_root_layout, {CodeHuntWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug :assign_caseid
-    plug :private_pages
+    plug :session_assigns
   end
 
-  def assign_caseid(conn, _opts) do
+  def session_assigns(conn, _opts) do
     caseid = Plug.Conn.get_session(conn, :caseid)
     assign(conn, :caseid, caseid)
   end
 
-  def private_pages(conn, _opts) do
-    assign(conn, :public_page, false)
+  def require_login(conn, _opts) do
+    if !conn.assigns.caseid do
+      conn = put_session(conn, "return_to_url", Phoenix.Controller.current_path(conn))
+      redirect(conn, to: CodeHuntWeb.Router.Helpers.page_path(conn, :login_prompt))
+    else
+      conn
+    end
   end
 
+  # Public pages
   scope "/", CodeHuntWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
     get "/login", LoginController, :login
     get "/auth", LoginController, :auth
+    get "/who", PageController, :login_prompt
+  end
+
+  # Pages that require login
+  scope "/", CodeHuntWeb do
+    pipe_through [:browser, :require_login]
+
+    get "/", PageController, :index
     get "/claim/:secret_id", CodeDropController, :claim
   end
 

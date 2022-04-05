@@ -5,8 +5,13 @@ defmodule CodeHunt.Hunting do
   alias CodeHunt.Hunting.CodeDrop
 
   def get_code_drop_by_base64encoded_secret_id(secret_id) do
-    {:ok, secret_id} = Base.url_decode64(secret_id)
-    Repo.one(from c in CodeDrop, where: c.secret_id == ^secret_id)
+    case Base.url_decode64(secret_id) do
+      {:ok, secret_id} ->
+        Repo.one(from c in CodeDrop, where: c.secret_id == ^secret_id)
+
+      _ ->
+        nil
+    end
   end
 
   defp generate_unused_secret_id() do

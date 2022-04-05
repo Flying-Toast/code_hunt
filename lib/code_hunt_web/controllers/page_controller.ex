@@ -4,4 +4,8 @@ defmodule CodeHuntWeb.PageController do
   def index(conn, _params) do
     render(conn, "index.html")
   end
+
+  def login_prompt(conn, _params) do
+    render(conn, "login_prompt.html")
+  end
 end

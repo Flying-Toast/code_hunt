@@ -1,20 +1,7 @@
 defmodule CodeHuntWeb.LoginController do
   use CodeHuntWeb, :controller
 
-  plug :public_page
-
-  defp public_page(conn, _opts) do
-    assign(conn, :public_page, true)
-  end
-
-  def login(conn, params) do
-    conn =
-      if params["from"] do
-        put_session(conn, "return_to_url", params["from"])
-      else
-        conn
-      end
-
+  def login(conn, _params) do
     redirect(conn, external: "https://login.case.edu/cas/login?service=#{Routes.login_url(conn, :auth)}")
   end
 
