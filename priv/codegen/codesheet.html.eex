@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<style>
+body {
+	margin: 8px;
+}
+
+@page {
+	margin: 0;
+	size: letter;
+}
+	</style>
+</head>
+
+<body>
+	<table>
+		<% 30 = length(svgs) %>
+
+		<%= for row <- Enum.chunk_every(svgs, 5) do %>
+		<tr>
+			<%= for svg <- row do %>
+			<td><%= svg %></td>
+			<% end %>
+		</tr>
+		<% end %>
+	</table>
+</body>
+
+</html>
