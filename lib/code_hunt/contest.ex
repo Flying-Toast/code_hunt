@@ -27,4 +27,11 @@ defmodule CodeHunt.Contest do
   def player_score(player) do
     Repo.one(from c in Hunting.CodeDrop, where: c.player_id == ^player.id, select: count())
   end
+
+  @doc """
+  Gets the top n players with the highest scores
+  """
+  def get_leaders(n) do
+    Repo.all(from p in Player, left_join: d in Hunting.CodeDrop, on: d.player_id == p.id, order_by: [desc: count(d.player_id)], select: {p, count(d.player_id)}, limit: ^n)
+  end
 end
