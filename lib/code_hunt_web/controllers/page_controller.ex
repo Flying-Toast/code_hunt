@@ -10,6 +10,10 @@ defmodule CodeHuntWeb.PageController do
   end
 
   def login_prompt(conn, _params) do
-    render(conn, "login_prompt.html")
+    if conn.assigns.caseid do
+      redirect(conn, to: Routes.page_path(conn, :index))
+    else
+      render(conn, "login_prompt.html")
+    end
   end
 end
