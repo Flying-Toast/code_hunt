@@ -18,7 +18,7 @@ defmodule CodeHunt.Contest do
     end
   end
 
-  defp create_player!(attrs \\ %{}) do
+  defp create_player!(attrs) do
     %Player{}
     |> Player.changeset(attrs)
     |> Repo.insert!()
