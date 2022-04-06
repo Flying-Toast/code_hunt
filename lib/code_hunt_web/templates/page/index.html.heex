@@ -1,2 +1,4 @@
 <p><%= @caseid %>: You have <%= @num_claimed %> <%= if @num_claimed == 1, do: "point", else: "points" %>.</p>
 <p>You need <%= @remaining_quota %> more.</p>
+
+<a id="bt" href={Routes.contest_path(@conn, :leaderboard)}>QWERTY</a>

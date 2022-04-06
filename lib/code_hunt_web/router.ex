@@ -41,6 +41,7 @@ defmodule CodeHuntWeb.Router do
 
     get "/", PageController, :index
     get "/claim/:secret_id", CodeDropController, :claim
+    get "/top", ContestController, :leaderboard
   end
 
   # Enables LiveDashboard only for development

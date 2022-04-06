@@ -1,0 +1,14 @@
+<p class="pre nomargin">      |-----------------|</p>
+<p class="pre nomargin">      | Player  | Score |</p>
+<p class="nomargin">------|-----------------|</p>
+
+<%= for {{player, score}, place} <- Enum.with_index(@leaders, 1) do %>
+  <% place_col = "#{place}." |> String.pad_leading(4) %>
+  <% player_col = String.pad_trailing(player.caseid, 8) %>
+  <% score_col = String.pad_trailing(to_string(score), 6) %>
+  <p class="pre nomargin">|<%= place_col %> | <%= player_col %>| <%= score_col %>|</p>
+<% end %>
+
+<p class="nomargin">------|-----------------|</p>
+
+<p><%= link "Back", to: Routes.page_path(@conn, :index) %></p>

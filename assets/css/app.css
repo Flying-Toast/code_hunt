@@ -14,3 +14,11 @@ html {
   right: 0px;
   color: white;
 }
+
+.pre {
+  white-space: pre;
+}
+
+.nomargin {
+  margin: 0px;
+}
