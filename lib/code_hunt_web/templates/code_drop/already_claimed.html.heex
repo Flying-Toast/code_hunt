@@ -1,1 +1,1 @@
-<%= @drop.claimed_by %> has already found this code.
+<p><%= if @drop.claimed_by == @caseid, do: "You", else: @drop.claimed_by %> already found this code</p>
