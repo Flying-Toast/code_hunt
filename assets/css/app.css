@@ -22,3 +22,7 @@ html {
 .nomargin {
   margin: 0px;
 }
+
+.me-col {
+  color: yellow;
+}
