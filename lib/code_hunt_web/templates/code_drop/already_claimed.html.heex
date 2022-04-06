@@ -1,1 +1,2 @@
 <p><%= if @drop.claimed_by == @caseid, do: "You", else: @drop.claimed_by %> already found this code</p>
+<p><%= link "Back", to: Routes.page_path(@conn, :index) %></p>

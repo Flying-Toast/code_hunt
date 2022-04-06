@@ -7,3 +7,10 @@ html {
   color: #D76969;
   font-size: 16px;
 }
+
+#bt {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  color: white;
+}
