@@ -3,22 +3,28 @@ defmodule CodeHunt.Contest do
   alias CodeHunt.Repo
 
   alias CodeHunt.Contest.Player
+  alias CodeHunt.Hunting
 
-  def list_players do
-    Repo.all(Player)
+  @doc """
+  Gets (creating if it doesn't exist) a player by their caseid
+  """
+  def get_player_by_caseid(caseid) do
+    player = Repo.one(from p in Player, where: p.caseid == ^caseid)
+
+    if player do
+      player
+    else
+      create_player!(%{caseid: caseid})
+    end
   end
 
-  def get_player!(id), do: Repo.get!(Player, id)
-
-  def create_player(attrs \\ %{}) do
+  defp create_player!(attrs \\ %{}) do
     %Player{}
     |> Player.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert!()
   end
 
-  def update_player(%Player{} = player, attrs) do
-    player
-    |> Player.changeset(attrs)
-    |> Repo.update()
+  def player_score(player) do
+    Repo.one(from c in Hunting.CodeDrop, where: c.player_id == ^player.id, select: count())
   end
 end

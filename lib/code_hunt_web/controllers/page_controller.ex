@@ -1,9 +1,10 @@
 defmodule CodeHuntWeb.PageController do
   use CodeHuntWeb, :controller
-  alias CodeHunt.Hunting
+  alias CodeHunt.Contest
 
   def index(conn, _params) do
-    num_claimed = Hunting.claimed_codes_count(conn.assigns.caseid)
+    player = Contest.get_player_by_caseid(conn.assigns.caseid)
+    num_claimed = Contest.player_score(player)
     remaining_quota = max(100 - num_claimed, 0)
     render(conn, "index.html", num_claimed: num_claimed, remaining_quota: remaining_quota)
   end

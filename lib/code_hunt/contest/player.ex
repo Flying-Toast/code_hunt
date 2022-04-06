@@ -3,7 +3,8 @@ defmodule CodeHunt.Contest.Player do
   import Ecto.Changeset
 
   schema "players" do
-    field :caseid, :string
+    field :caseid, :string, size: 10, null: false
+    has_many :code_drops, CodeHunt.Hunting.CodeDrop
 
     timestamps()
   end

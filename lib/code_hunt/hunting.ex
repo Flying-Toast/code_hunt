@@ -7,7 +7,7 @@ defmodule CodeHunt.Hunting do
   def get_code_drop_by_base64encoded_secret_id(secret_id) do
     case Base.url_decode64(secret_id) do
       {:ok, secret_id} ->
-        Repo.one(from c in CodeDrop, where: c.secret_id == ^secret_id)
+        Repo.one!(from c in CodeDrop, where: c.secret_id == ^secret_id, preload: [:player])
 
       _ ->
         nil
@@ -24,20 +24,16 @@ defmodule CodeHunt.Hunting do
     end
   end
 
-  def create_code_drop() do
+  def create_code_drop!() do
     %CodeDrop{secret_id: generate_unused_secret_id()}
     |> CodeDrop.changeset(%{})
-    |> Repo.insert()
+    |> Repo.insert!()
   end
 
-  def claim_code_drop(drop, claimer) do
-    nil = drop.claimed_by
+  def claim_code_drop(drop, player) do
+    nil = drop.player
     drop
-    |> CodeDrop.changeset(%{claimed_by: claimer, claim_date: DateTime.now!("Etc/UTC")})
+    |> CodeDrop.changeset(%{player_id: player.id, claim_date: DateTime.now!("Etc/UTC")})
     |> Repo.update()
-  end
-
-  def claimed_codes_count(claimed_by) do
-    Repo.one(from c in CodeDrop, where: c.claimed_by == ^claimed_by, select: count())
   end
 end

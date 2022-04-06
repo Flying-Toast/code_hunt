@@ -5,10 +5,11 @@ defmodule CodeHuntWeb.CodeDropController do
     drop = CodeHunt.Hunting.get_code_drop_by_base64encoded_secret_id(secret_id)
 
     if drop do
-      if drop.claimed_by do
+      if drop.player do
         render(conn, "already_claimed.html", drop: drop)
       else
-        {:ok, _drop} = CodeHunt.Hunting.claim_code_drop(drop, conn.assigns[:caseid])
+        player = CodeHunt.Contest.get_player_by_caseid(conn.assigns.caseid)
+        {:ok, _drop} = CodeHunt.Hunting.claim_code_drop(drop, player)
         render(conn, "successful_claim.html")
       end
     else

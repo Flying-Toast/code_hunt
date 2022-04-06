@@ -3,7 +3,7 @@ defmodule CodeHunt.Repo.Migrations.CreatePlayers do
 
   def change do
     create table(:players) do
-      add :caseid, :string
+      add :caseid, :string, size: 10, null: false
 
       timestamps()
     end
