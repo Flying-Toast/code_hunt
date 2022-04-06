@@ -18,6 +18,7 @@ defmodule CodeHuntWeb.Router do
   def require_login(conn, _opts) do
     if !conn.assigns.caseid do
       conn = put_session(conn, "return_to_url", Phoenix.Controller.current_path(conn))
+
       redirect(conn, to: CodeHuntWeb.Router.Helpers.page_path(conn, :login_prompt))
       |> halt()
     else

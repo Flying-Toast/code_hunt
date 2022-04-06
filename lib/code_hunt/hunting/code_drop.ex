@@ -1,11 +1,12 @@
 defmodule CodeHunt.Hunting.CodeDrop do
   use Ecto.Schema
   import Ecto.Changeset
+  alias CodeHunt.Contest
 
   schema "code_drops" do
     field :claim_date, :utc_datetime
     field :secret_id, :binary, null: false, size: 33
-    belongs_to :player, CodeHunt.Contest.Player
+    belongs_to :player, Contest.Player
 
     timestamps()
   end
