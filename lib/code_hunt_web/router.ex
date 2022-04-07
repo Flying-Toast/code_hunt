@@ -26,6 +26,17 @@ defmodule CodeHuntWeb.Router do
     end
   end
 
+  def admin_only(conn, _opts) do
+    if conn.assigns.caseid == "srs266" do
+      conn
+    else
+      conn
+      |> put_view(CodeHuntWeb.ErrorView)
+      |> render("404.html")
+      |> halt()
+    end
+  end
+
   # Public pages
   scope "/", CodeHuntWeb do
     pipe_through :browser
@@ -42,6 +53,13 @@ defmodule CodeHuntWeb.Router do
     get "/", PageController, :index
     get "/claim/:secret_id", CodeDropController, :claim
     get "/top", ContestController, :leaderboard
+  end
+
+  scope "/admin", CodeHuntWeb do
+    pipe_through [:browser, :require_login, :admin_only]
+
+    get "/", AdminController, :index
+    get "/generate-codesheet", AdminController, :gen_codesheet
   end
 
   # Enables LiveDashboard only for development
