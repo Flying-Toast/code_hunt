@@ -1,2 +1,2 @@
-<p><%= if @drop.player.caseid == @me_player.caseid, do: "You", else: @drop.player.caseid %> already found this code.</p>
+<p><%= if @drop.player.caseid == @me_player.caseid, do: "You", else: @drop.player.caseid %> already found this code. Please dispose of the QR code.</p>
 <p><%= link "Back", to: Routes.page_path(@conn, :index) %></p>

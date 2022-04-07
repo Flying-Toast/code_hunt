@@ -23,10 +23,18 @@ defmodule CodeHunt.Hunting do
     end
   end
 
-  defp create_code_drop!(code_sheet_id) do
+  def create_code_drop() do
     %CodeDrop{}
-    |> CodeDrop.changeset(%{secret_id: generate_unused_secret_id(), code_sheet_id: code_sheet_id})
-    |> Repo.insert!()
+    |> CodeDrop.changeset(%{secret_id: generate_unused_secret_id()})
+    |> Repo.insert()
+  end
+
+  defp create_code_drop_for_sheet!(code_sheet_id) do
+    {:ok, drop} = create_code_drop()
+
+    drop
+    |> CodeDrop.changeset(%{code_sheet_id: code_sheet_id})
+    |> Repo.update!()
   end
 
   def list_drops() do
@@ -46,7 +54,7 @@ defmodule CodeHunt.Hunting do
       |> CodeSheet.changeset(%{})
       |> Repo.insert!()
 
-    for _ <- 1..30, do: create_code_drop!(sheet.id)
+    for _ <- 1..30, do: create_code_drop_for_sheet!(sheet.id)
 
     sheet
     |> Repo.preload(:code_drops)
