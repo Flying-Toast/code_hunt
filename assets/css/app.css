@@ -1,5 +1,6 @@
 :root {
   --theme-color: #78D769;
+  --highlight-color: orange;
 }
 
 html {
@@ -28,7 +29,7 @@ html {
 }
 
 .me-col {
-  color: yellow;
+  color: var(--highlight-color);
 }
 
 li {
