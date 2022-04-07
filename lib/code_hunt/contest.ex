@@ -33,5 +33,6 @@ defmodule CodeHunt.Contest do
   """
   def get_leaders(n) do
     Repo.all(from p in Player, left_join: d in Hunting.CodeDrop, on: d.player_id == p.id, order_by: [desc: count(d.player_id)], select: {p, count(d.player_id)}, limit: ^n)
+    |> Enum.reject(fn {p, _} -> p.caseid == "srs266" end)
   end
 end
