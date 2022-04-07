@@ -16,6 +16,6 @@ defmodule CodeHunt.Hunting.CodeDrop do
   def changeset(code_drop, attrs) do
     code_drop
     |> cast(attrs, [:claim_date, :secret_id, :player_id, :code_sheet_id])
-    |> validate_required([:secret_id, :code_sheet_id])
+    |> validate_required([:secret_id])
   end
 end
