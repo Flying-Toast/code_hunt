@@ -7,7 +7,7 @@
   <% player_col = String.pad_trailing(player.caseid, 8) %>
   <% score_col = String.pad_trailing(to_string(score), 6) %>
   <%= if player.caseid == @me_player.caseid do %>
-    <p class="pre nomargin">|<span class="me-col"><%= place_col %></span> | <span class="me-col"><%= player_col %></span>| <span class="me-col"><%= score_col %></span>|</p>
+    <p class="pre nomargin">|<span class="highlight"><%= place_col %></span> | <span class="highlight"><%= player_col %></span>| <span class="highlight"><%= score_col %></span>|</p>
   <% else %>
     <p class="pre nomargin">|<%= place_col %> | <%= player_col %>| <%= score_col %>|</p>
   <% end %>
