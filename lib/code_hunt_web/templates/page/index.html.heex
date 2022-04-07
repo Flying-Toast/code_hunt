@@ -1,4 +1,4 @@
-<p><%= @me_player.caseid %>: You have <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
-<p>You need <%= @remaining_quota %> more...</p>
+<h1>Greetings, <%= @me_player.caseid %>. Welcome to the QWERTY system.</h1>
+<p>You have <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>. You need <%= @remaining_quota %> more...</p>
 
 <a id="bt" href={Routes.contest_path(@conn, :leaderboard)}>QWERTY</a>
