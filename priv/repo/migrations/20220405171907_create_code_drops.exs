@@ -7,7 +7,7 @@ defmodule CodeHunt.Repo.Migrations.CreateCodeDrops do
       add :claim_date, :utc_datetime
       add :secret_id, :binary, null: false, size: 33
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
   end
 end

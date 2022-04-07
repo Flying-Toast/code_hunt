@@ -1,0 +1,16 @@
+<h1>All Players</h1>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>CaseID</th>
+    <th>Join Date</th>
+  </tr>
+  <%= for player <- @players do %>
+    <tr>
+      <td><%= player.id %></td>
+      <td><%= player.caseid %></td>
+      <td><%= player.inserted_at |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-H:%M %p") %></td>
+    </tr>
+  <% end %>
+</table>

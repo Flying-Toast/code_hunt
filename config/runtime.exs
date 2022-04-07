@@ -22,6 +22,7 @@ if config_env() == :prod do
 
   config :code_hunt, CodeHunt.Repo,
     database: database_path,
+    migration_timestamps: [type: :utc_datetime],
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "5")
 
   # The secret key base is used to sign/encrypt cookies and other secrets.

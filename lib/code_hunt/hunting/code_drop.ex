@@ -8,7 +8,7 @@ defmodule CodeHunt.Hunting.CodeDrop do
     field :secret_id, :binary, null: false, size: 33
     belongs_to :player, Contest.Player
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

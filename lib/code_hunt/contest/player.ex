@@ -7,7 +7,7 @@ defmodule CodeHunt.Contest.Player do
     field :caseid, :string, size: 10, null: false
     has_many :code_drops, Hunting.CodeDrop
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

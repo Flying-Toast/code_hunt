@@ -3,6 +3,7 @@ import Config
 # Configure your database
 config :code_hunt, CodeHunt.Repo,
   database: Path.expand("../code_hunt_dev.db", Path.dirname(__ENV__.file)),
+  migration_timestamps: [type: :utc_datetime],
   pool_size: 5,
   show_sensitive_data_on_connection_error: true
 
