@@ -1,3 +1,7 @@
+:root {
+  --theme-color: #78D769;
+}
+
 html {
   background-color: black;
   font-size: 18px;
@@ -5,7 +9,7 @@ html {
 
 * {
   font-family: monospace;
-  color: #D76969;
+  color: var(--theme-color);
 }
 
 #bt {
@@ -36,7 +40,7 @@ table {
 }
 
 td {
-  border: 1px solid #D76969;
+  border: 1px solid var(--theme-color);
   padding: 4px;
 }
 
