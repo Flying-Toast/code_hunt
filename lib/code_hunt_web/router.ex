@@ -67,8 +67,8 @@ defmodule CodeHuntWeb.Router do
 
     get "/", AdminController, :index
     get "/generate-codesheet", AdminController, :gen_codesheet
-    get "/drops", AdminController, :show_drops
-    get "/players", AdminController, :show_players
+    get "/drops", CodeDropController, :show_drops
+    get "/players", ContestController, :show_players
   end
 
   # Enables LiveDashboard only for development

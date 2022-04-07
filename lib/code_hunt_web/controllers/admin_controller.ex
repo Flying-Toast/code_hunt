@@ -57,16 +57,4 @@ defmodule CodeHuntWeb.AdminController do
 
     html(conn, rendered)
   end
-
-  def show_drops(conn, _params) do
-    drops = Hunting.list_drops()
-
-    render(conn, "show_drops.html", drops: drops)
-  end
-
-  def show_players(conn, _params) do
-    players = Contest.list_players()
-
-    render(conn, "show_players.html", players: players)
-  end
 end

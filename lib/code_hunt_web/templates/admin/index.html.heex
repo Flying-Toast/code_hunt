@@ -1,7 +1,7 @@
 <ul>
   <li><%= link "Generate codesheet", to: Routes.admin_path(@conn, :gen_codesheet) %></li>
-  <li><%= link "View drops", to: Routes.admin_path(@conn, :show_drops) %></li>
-  <li><%= link "View players", to: Routes.admin_path(@conn, :show_players) %></li>
+  <li><%= link "View drops", to: Routes.code_drop_path(@conn, :show_drops) %></li>
+  <li><%= link "View players", to: Routes.contest_path(@conn, :show_players) %></li>
 </ul>
 
 <%= link "Home", to: Routes.page_path(@conn, :index) %>
