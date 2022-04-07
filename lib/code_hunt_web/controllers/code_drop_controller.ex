@@ -23,4 +23,12 @@ defmodule CodeHuntWeb.CodeDropController do
 
     render(conn, "show_drops.html", drops: drops)
   end
+
+  def show_code_sheet(conn, %{"id" => id}) do
+    sheet = Hunting.get_code_sheet!(id)
+
+    conn
+    |> put_root_layout(false)
+    |> render("show_sheet.html", sheet: sheet)
+  end
 end

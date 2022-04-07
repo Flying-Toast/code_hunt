@@ -67,6 +67,7 @@ defmodule CodeHuntWeb.Router do
 
     get "/", AdminController, :index
     get "/generate-codesheet", AdminController, :gen_codesheet
+    get "/codesheet/:id", CodeDropController, :show_code_sheet
     get "/drops", CodeDropController, :show_drops
     get "/players", ContestController, :show_players
   end

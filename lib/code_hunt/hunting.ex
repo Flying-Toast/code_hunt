@@ -51,4 +51,8 @@ defmodule CodeHunt.Hunting do
     sheet
     |> Repo.preload(:code_drops)
   end
+
+  def get_code_sheet!(id) do
+    Repo.get!(from(c in CodeSheet, preload: [:code_drops]), id)
+  end
 end
