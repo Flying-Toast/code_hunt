@@ -1,11 +1,11 @@
 html {
   background-color: black;
+  font-size: 18px;
 }
 
 * {
   font-family: monospace;
   color: #D76969;
-  font-size: 16px;
 }
 
 #bt {
@@ -25,4 +25,21 @@ html {
 
 .me-col {
   color: yellow;
+}
+
+li {
+  margin: 5px 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  border: 1px solid #D76969;
+  padding: 4px;
+}
+
+th {
+  padding: 0 10px;
 }

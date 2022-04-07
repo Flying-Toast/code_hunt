@@ -7,6 +7,8 @@
 # General application configuration
 import Config
 
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 config :code_hunt,
   ecto_repos: [CodeHunt.Repo]
 

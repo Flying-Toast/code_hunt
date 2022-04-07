@@ -30,6 +30,10 @@ defmodule CodeHunt.Hunting do
     |> Repo.insert!()
   end
 
+  def list_drops() do
+    Repo.all(from d in CodeDrop, preload: [:player], select: d)
+  end
+
   def claim_code_drop(drop, player) do
     nil = drop.player
     drop

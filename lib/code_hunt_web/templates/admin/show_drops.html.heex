@@ -1,0 +1,28 @@
+<table>
+  <tr>
+    <th>Drop id</th>
+    <th>Claimed by</th>
+    <th>Date claimed</th>
+  </tr>
+  <%= for drop <- @drops do %>
+    <tr>
+      <td><%= drop.id %></td>
+
+      <td>
+        <%= if drop.player do %>
+          <%= drop.player.caseid %>
+        <% else %>
+          --
+        <% end %>
+      </td>
+
+      <td>
+        <%= if drop.player do %>
+          <%= drop.claim_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-H:%M %p") %>
+        <% else %>
+          --
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
