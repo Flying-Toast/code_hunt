@@ -12,11 +12,18 @@ defmodule CodeHuntWeb.Router do
 
   def session_assigns(conn, _opts) do
     caseid = Plug.Conn.get_session(conn, :caseid)
-    assign(conn, :caseid, caseid)
+    me =
+      if caseid do
+        CodeHunt.Contest.get_player_by_caseid(caseid)
+      else
+        nil
+      end
+
+    assign(conn, :me_player, me)
   end
 
   def require_login(conn, _opts) do
-    if !conn.assigns.caseid do
+    if !conn.assigns.me_player do
       conn = put_session(conn, "return_to_url", Phoenix.Controller.current_path(conn))
 
       redirect(conn, to: CodeHuntWeb.Router.Helpers.page_path(conn, :login_prompt))
@@ -27,7 +34,7 @@ defmodule CodeHuntWeb.Router do
   end
 
   def admin_only(conn, _opts) do
-    if conn.assigns.caseid == "srs266" do
+    if conn.assigns.me_player.caseid == "srs266" do
       conn
     else
       conn
