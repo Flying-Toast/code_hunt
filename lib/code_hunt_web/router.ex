@@ -34,7 +34,7 @@ defmodule CodeHuntWeb.Router do
   end
 
   def admin_only(conn, _opts) do
-    if conn.assigns.me_player && conn.assigns.me_player.caseid == "srs266" do
+    if conn.assigns.me_player && conn.assigns.me_player.caseid in Application.fetch_env!(:code_hunt, :admins) do
       conn
     else
       conn
