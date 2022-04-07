@@ -7,7 +7,6 @@
     <%= csrf_meta_tag() %>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}>
     <link rel="icon" href="/favicon.ico">
-    <script defer phx-track-static src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>
       <%= @inner_content %>
