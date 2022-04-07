@@ -1,8 +1,7 @@
 defmodule CodeHunt.Hunting do
   import Ecto.Query, warn: false
   alias CodeHunt.Repo
-
-  alias CodeHunt.Hunting.CodeDrop
+  alias CodeHunt.Hunting.{CodeDrop, CodeSheet}
 
   def get_code_drop_by_base64encoded_secret_id(secret_id) do
     case Base.url_decode64(secret_id) do
@@ -24,9 +23,9 @@ defmodule CodeHunt.Hunting do
     end
   end
 
-  def create_code_drop!() do
-    %CodeDrop{secret_id: generate_unused_secret_id()}
-    |> CodeDrop.changeset(%{})
+  defp create_code_drop!(code_sheet_id) do
+    %CodeDrop{}
+    |> CodeDrop.changeset(%{secret_id: generate_unused_secret_id(), code_sheet_id: code_sheet_id})
     |> Repo.insert!()
   end
 
@@ -39,5 +38,17 @@ defmodule CodeHunt.Hunting do
     drop
     |> CodeDrop.changeset(%{player_id: player.id, claim_date: DateTime.now!("Etc/UTC")})
     |> Repo.update()
+  end
+
+  def create_code_sheet!() do
+    sheet =
+      %CodeSheet{}
+      |> CodeSheet.changeset(%{})
+      |> Repo.insert!()
+
+    for _ <- 1..30, do: create_code_drop!(sheet.id)
+
+    sheet
+    |> Repo.preload(:code_drops)
   end
 end

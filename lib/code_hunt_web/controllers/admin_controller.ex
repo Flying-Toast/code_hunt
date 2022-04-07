@@ -42,10 +42,10 @@ defmodule CodeHuntWeb.AdminController do
   EEx.function_from_string(:defp, :render_codesheet, @codesheet_template, [:svgs])
 
   def gen_codesheet(conn, _params) do
-    svgs =
-      for _ <- 1..30 do
-        drop = Hunting.create_code_drop!()
+    sheet = Hunting.create_code_sheet!()
 
+    svgs =
+      for drop <- sheet.code_drops do
         encoded = Base.url_encode64(drop.secret_id)
 
         Routes.code_drop_url(conn, :claim, encoded)

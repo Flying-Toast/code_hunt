@@ -1,12 +1,15 @@
 <table>
   <tr>
     <th>Drop id</th>
+    <th>Sheet</th>
     <th>Claimed by</th>
     <th>Date claimed</th>
   </tr>
   <%= for drop <- @drops do %>
     <tr>
       <td><%= drop.id %></td>
+
+      <td><%= drop.code_sheet_id %></td>
 
       <td>
         <%= if drop.player do %>
