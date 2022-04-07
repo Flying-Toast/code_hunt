@@ -7,7 +7,8 @@ defmodule CodeHuntWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "session",
-    signing_salt: "aWT88lSp"
+    signing_salt: "aWT88lSp",
+    same_site: "Lax"
   ]
 
   # Serve at "/" the static files from "priv/static" directory.
