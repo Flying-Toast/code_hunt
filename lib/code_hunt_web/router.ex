@@ -34,10 +34,11 @@ defmodule CodeHuntWeb.Router do
   end
 
   def admin_only(conn, _opts) do
-    if conn.assigns.me_player.caseid == "srs266" do
+    if conn.assigns.me_player && conn.assigns.me_player.caseid == "srs266" do
       conn
     else
       conn
+      |> put_status(404)
       |> put_view(CodeHuntWeb.ErrorView)
       |> render("404.html")
       |> halt()
@@ -63,7 +64,7 @@ defmodule CodeHuntWeb.Router do
   end
 
   scope "/admin", CodeHuntWeb do
-    pipe_through [:browser, :require_login, :admin_only]
+    pipe_through [:browser, :admin_only]
 
     get "/", AdminController, :index
     get "/generate-codesheet", AdminController, :gen_codesheet
