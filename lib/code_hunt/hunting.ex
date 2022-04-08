@@ -44,7 +44,7 @@ defmodule CodeHunt.Hunting do
   def claim_code_drop(drop, player) do
     nil = drop.player
     drop
-    |> CodeDrop.changeset(%{player_id: player.id, claim_date: DateTime.now!("Etc/UTC")})
+    |> CodeDrop.changeset(%{player_id: player.id, claim_date: DateTime.utc_now()})
     |> Repo.update()
   end
 

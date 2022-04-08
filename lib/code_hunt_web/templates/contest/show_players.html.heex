@@ -10,7 +10,7 @@
     <tr>
       <td><%= player.id %></td>
       <td><%= player.caseid %></td>
-      <td><%= player.inserted_at |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-H:%M %p") %></td>
+      <td><%= player.inserted_at %></td>
     </tr>
   <% end %>
 </table>
