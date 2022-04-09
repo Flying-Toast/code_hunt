@@ -17,9 +17,6 @@ config :code_hunt, CodeHuntWeb.Endpoint,
   secret_key_base: "svyLlFrHnlOO7Oo2HBWfnCU47gkHtBrkSacNoS+5kjcvUTvCNab/tvN/MzqGiIK7",
   server: false
 
-# In test we don't send emails.
-config :code_hunt, CodeHunt.Mailer, adapter: Swoosh.Adapters.Test
-
 # Print only warnings and errors during test
 config :logger, level: :warn
 
