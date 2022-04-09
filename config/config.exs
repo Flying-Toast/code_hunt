@@ -22,7 +22,7 @@ config :esbuild,
   version: "0.14.0",
   default: [
     args:
-      ~w(css/app.css --bundle --minify --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(css/app.css --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
