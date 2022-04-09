@@ -1,5 +1,8 @@
 import Config
 
+config :code_hunt,
+  admins: ["srs266"]
+
 # Configure your database
 config :code_hunt, CodeHunt.Repo,
   database: Path.expand("../code_hunt_dev.db", Path.dirname(__ENV__.file)),

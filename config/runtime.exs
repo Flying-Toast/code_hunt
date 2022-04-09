@@ -1,14 +1,17 @@
 import Config
 
-config :code_hunt,
-  admins: MapSet.new(["srs266"])
-
 # Start the phoenix server if environment is set and running in a release
 if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
   config :code_hunt, CodeHuntWeb.Endpoint, server: true
 end
 
 if config_env() == :prod do
+  admins = (System.get_env("ADMIN_CASEIDS") || raise "Missing ENV var: ADMIN_CASEIDS. Should be `abc123,foo291,bar221` or empty")
+    |> String.split(",", trim: true)
+
+  config :code_hunt,
+    admins: admins
+
   database_path =
     System.get_env("DATABASE_PATH") ||
       raise """
@@ -32,8 +35,9 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "example.com"
-  port = String.to_integer(System.get_env("PORT") || "4000")
+  host = System.get_env("PHX_HOST") || raise "Missing ENV var: PHX_HOST. Set it to: mydomain.tld"
+  port = System.get_env("PORT") || raise "Missing ENV var: PORT"
+  port = String.to_integer(port)
 
   config :code_hunt, CodeHuntWeb.Endpoint,
     url: [host: host, port: 443],
