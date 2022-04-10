@@ -1,6 +1,6 @@
-<h1>Welcome to QWERTY</h1>
-<p>Greetings, <%= @me_player.caseid %>. You have <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
-<p>You need <%= @remaining_quota %> more to unlock <i>stage 2</i>...</p>
+<h1>Greetings, Agent <%= @me_player.caseid %>.</h1>
+<p>You have found <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
+<p>To complete your first task, you must find <%= @remaining_quota %> more.</p>
 <%= link "Log out", to: Routes.login_path(@conn, :logout) %>
 
 <a id="bt" href={Routes.contest_path(@conn, :leaderboard)}>QWERTY</a>
