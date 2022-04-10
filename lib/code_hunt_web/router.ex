@@ -39,6 +39,7 @@ defmodule CodeHuntWeb.Router do
     else
       conn
       |> put_status(404)
+      |> put_root_layout(false)
       |> put_view(CodeHuntWeb.ErrorView)
       |> render("404.html")
       |> halt()
