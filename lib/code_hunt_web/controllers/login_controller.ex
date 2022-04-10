@@ -23,6 +23,6 @@ defmodule CodeHuntWeb.LoginController do
   def logout(conn, _params) do
     conn
     |> delete_session("caseid")
-    |> redirect(external: "https://login.case.edu/cas/logout")
+    |> redirect(to: Routes.page_path(conn, :index))
   end
 end
