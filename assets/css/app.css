@@ -8,6 +8,10 @@ html {
   font-size: 16px;
 }
 
+h1 {
+  font-size: 24px;
+}
+
 * {
   font-family: monospace;
   color: var(--theme-color);
