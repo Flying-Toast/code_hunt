@@ -19,4 +19,10 @@ defmodule CodeHuntWeb.LoginController do
         redirect(conn, to: go_to_url)
     end
   end
+
+  def logout(conn, _params) do
+    conn
+    |> delete_session("caseid")
+    |> redirect(external: "https://login.case.edu/cas/logout")
+  end
 end

@@ -51,6 +51,7 @@ defmodule CodeHuntWeb.Router do
     pipe_through :browser
 
     get "/login", LoginController, :login
+    get "/logout", LoginController, :logout
     get "/auth", LoginController, :auth
     get "/who", PageController, :login_prompt
   end
