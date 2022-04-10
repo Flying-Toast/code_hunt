@@ -14,7 +14,7 @@ defmodule CodeHuntWeb.LoginController do
 
       ["yes", caseid] ->
         conn = put_session(conn, "caseid", caseid)
-        go_to_url = get_session(conn, "return_to_url") || "/"
+        go_to_url = get_session(conn, "return_to_url") || Routes.page_path(conn, :index)
         conn = delete_session(conn, "return_to_url")
         redirect(conn, to: go_to_url)
     end
