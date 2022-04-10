@@ -1,6 +1,6 @@
 <h1>Welcome to QWERTY.</h1>
 <p>Greetings, <%= @me_player.caseid %>. You have <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
-<p>You need <%= @remaining_quota %> more...</p>
+<p>You need <%= @remaining_quota %> more to unlock <i>stage 2</i>...</p>
 <%= link "Log out", to: Routes.login_path(@conn, :logout) %>
 
 <a id="bt" href={Routes.contest_path(@conn, :leaderboard)}>QWERTY</a>

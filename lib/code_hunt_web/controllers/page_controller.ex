@@ -4,7 +4,7 @@ defmodule CodeHuntWeb.PageController do
 
   def index(conn, _params) do
     num_claimed = Contest.player_score(conn.assigns.me_player)
-    remaining_quota = max(100 - num_claimed, 0)
+    remaining_quota = max(15 - num_claimed, 0)
     render(conn, "index.html", num_claimed: num_claimed, remaining_quota: remaining_quota)
   end
 
