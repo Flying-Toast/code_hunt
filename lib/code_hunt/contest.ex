@@ -33,10 +33,10 @@ defmodule CodeHunt.Contest do
   end
 
   @doc """
-  Gets the top n players with the highest scores
+  Gets the top n players with the highest scores, excluding players with 0 points
   """
   def get_leaders(n) do
     Repo.all(from p in Player, left_join: d in Hunting.CodeDrop, on: d.player_id == p.id, order_by: [desc: count(d.player_id)], select: {p, count(d.player_id)}, limit: ^n)
-    |> Enum.reject(fn {p, _} -> p.caseid == "srs266" end)
+    |> Enum.reject(fn {_, score} -> score == 0 end)
   end
 end
