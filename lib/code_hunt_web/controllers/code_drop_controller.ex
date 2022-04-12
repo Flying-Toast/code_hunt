@@ -1,6 +1,6 @@
 defmodule CodeHuntWeb.CodeDropController do
   use CodeHuntWeb, :controller
-  alias CodeHunt.Hunting
+  alias CodeHunt.{Hunting, Contest}
 
   def claim(conn, %{"secret_id" => secret_id}) do
     drop = Hunting.get_code_drop_by_base64encoded_secret_id(secret_id)
@@ -9,8 +9,12 @@ defmodule CodeHuntWeb.CodeDropController do
       if drop.player do
         render(conn, "already_claimed.html", drop: drop)
       else
-        {:ok, _drop} = Hunting.claim_code_drop(drop, conn.assigns.me_player)
-        render(conn, "successful_claim.html")
+        if Contest.is_admin(conn.assigns.me_player) do
+          text(conn, "Admins can't claim codes, silly. That would be cheating.")
+        else
+          {:ok, _drop} = Hunting.claim_code_drop(drop, conn.assigns.me_player)
+          render(conn, "successful_claim.html")
+        end
       end
     else
       render(conn, "invalid.html")

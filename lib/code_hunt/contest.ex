@@ -18,6 +18,10 @@ defmodule CodeHunt.Contest do
     end
   end
 
+  def is_admin(player) do
+    player.caseid in Application.fetch_env!(:code_hunt, :admins)
+  end
+
   def list_players() do
     Repo.all(Player)
   end
