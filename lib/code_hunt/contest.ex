@@ -40,6 +40,7 @@ defmodule CodeHunt.Contest do
     |> Enum.map(&{&1, player_score(&1)})
     |> Enum.reject(fn {_, score} -> score == 0 end)
     |> Enum.sort_by(fn {_, score} -> score end)
+    |> Enum.reverse()
     |> Enum.take(n)
   end
 end
