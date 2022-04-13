@@ -1,11 +1,11 @@
-<p class="pre nomargin">      |-----------------|</p>
-<p class="pre nomargin">      | AGENT   | SCORE |</p>
-<p class="nomargin">------|-----------------|</p>
+<p class="pre nomargin">      |------------------|</p>
+<p class="pre nomargin">      | AGENT   | TOKENS |</p>
+<p class="nomargin">------|------------------|</p>
 
 <%= for {{player, score}, place} <- Enum.with_index(@leaders, 1) do %>
   <% place_col = "#{place}." |> String.pad_leading(4) %>
   <% player_col = String.pad_trailing(player.caseid, 8) %>
-  <% score_col = String.pad_trailing(to_string(score), 6) %>
+  <% score_col = String.pad_trailing(to_string(score), 7) %>
   <%= if player.caseid == @me_player.caseid do %>
     <p class="pre nomargin">|<span class="highlight"><%= place_col %></span> | <span class="highlight"><%= player_col %></span>| <span class="highlight"><%= score_col %></span>|</p>
   <% else %>
@@ -13,6 +13,6 @@
   <% end %>
 <% end %>
 
-<p class="nomargin">------|-----------------|</p>
+<p class="nomargin">------|------------------|</p>
 
 <p><%= link "Back", to: Routes.page_path(@conn, :index) %></p>

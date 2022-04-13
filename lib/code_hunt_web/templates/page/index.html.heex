@@ -1,6 +1,11 @@
-<h1>Greetings, Agent <%= @me_player.caseid %>.</h1>
-<p>You have found <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
-<p>To complete your first mission, you must find <%= @remaining_quota %> more.</p>
+<h1><%= if @num_claimed >= @remaining_quota, do: "Welcome back", else: "Greetings" %>, Agent <%= @me_player.caseid %>.</h1>
+<p>You have <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
+<%= if @num_claimed >= @remaining_quota do %>
+  <p>Mission 2 will commence shortly; you will be notified when it begins.</p>
+  <p>Continue to collect tokens for now, as they will be of great use in the future.</p>
+<% else %>
+  <p>To complete your first mission, you must find <%= @remaining_quota %> more.</p>
+<% end %>
 <%= link "Log out", to: Routes.login_path(@conn, :logout) %>
 
 <a id="bt" href={Routes.contest_path(@conn, :leaderboard)}>QWERTY</a>

@@ -9,7 +9,7 @@ defmodule CodeHunt.Contest do
   Gets (creating if it doesn't exist) a player by their caseid
   """
   def get_player_by_caseid(caseid) do
-    player = Repo.one(from p in Player, where: p.caseid == ^caseid)
+    player = Repo.one(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops])
 
     if player do
       player
@@ -17,6 +17,8 @@ defmodule CodeHunt.Contest do
       create_player!(%{caseid: caseid})
     end
   end
+
+  def points_needed_for_mission_1, do: 5
 
   def is_admin(player) do
     player.caseid in Application.fetch_env!(:code_hunt, :admins)

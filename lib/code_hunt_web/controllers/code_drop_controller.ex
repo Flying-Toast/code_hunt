@@ -13,7 +13,12 @@ defmodule CodeHuntWeb.CodeDropController do
           text(conn, "Admins can't claim codes, silly. That would be cheating.")
         else
           {:ok, _drop} = Hunting.claim_code_drop(drop, conn.assigns.me_player)
-          render(conn, "successful_claim.html")
+          finished_mission_1 = length(conn.assigns.me_player.code_drops) == Contest.points_needed_for_mission_1()
+          if finished_mission_1 do
+            render(conn, "mission_completed.html", mission_num: 1)
+          else
+            render(conn, "successful_claim.html")
+          end
         end
       end
     else

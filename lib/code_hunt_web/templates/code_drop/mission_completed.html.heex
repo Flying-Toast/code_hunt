@@ -1,0 +1,11 @@
+<div class="curtain">
+  <%= render("successful_claim.html", assigns) %>
+</div>
+
+<div id="fill-as-body" class="light-bg">
+  <h1 class="center">Mission <%= @mission_num %> Complete</h1>
+  <p>Well done, Agent <%= @me_player.caseid %>. You have proven yourself worthy and have been selected as a candidate for Mission <%= @mission_num + 1 %>. You will be notified shortly when it begins.</p>
+  <p>Continue to collect tokens for now; they will benefit you greatly in the future.</p>
+  <p><%= link "Home", to: Routes.page_path(@conn, :index) %></p>
+</div>
+
