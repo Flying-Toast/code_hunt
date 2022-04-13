@@ -48,13 +48,19 @@ defmodule CodeHunt.Contest do
   end
 
   @doc """
-  Gets the top n players with the highest scores, excluding players with 0 points
+  Gets the top n players with the highest scores, excluding players with 0 points. Pass `true` as `n` parameter to retrieve all players.
   """
   def get_leaders(n) do
-    list_players()
-    |> Enum.map(&{&1, player_score(&1)})
-    |> Enum.reject(fn {_, score} -> score == 0 end)
-    |> Enum.sort_by(fn {p, score} -> {-1 * score, unix_time_of_latest_claim(p)} end)
-    |> Enum.take(n)
+    leaders =
+      list_players()
+      |> Enum.map(&{&1, player_score(&1)})
+      |> Enum.reject(fn {_, score} -> score == 0 end)
+      |> Enum.sort_by(fn {p, score} -> {-1 * score, unix_time_of_latest_claim(p)} end)
+
+    if n == true do
+      leaders
+    else
+      Enum.take(leaders, n)
+    end
   end
 end

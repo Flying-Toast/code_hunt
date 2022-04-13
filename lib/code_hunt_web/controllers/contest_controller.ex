@@ -7,6 +7,11 @@ defmodule CodeHuntWeb.ContestController do
     render(conn, "leaderboard.html", leaders: leaders)
   end
 
+  def full_leaderboard(conn, _params) do
+    leaders = Contest.get_leaders(true)
+    render(conn, "leaderboard.html", leaders: leaders)
+  end
+
   def show_players(conn, _params) do
     players = Contest.list_players()
 
