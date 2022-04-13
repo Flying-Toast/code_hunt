@@ -24,6 +24,7 @@ defmodule CodeHunt.Contest do
 
   def list_players() do
     Repo.all(Player)
+    |> Repo.preload([:code_drops])
   end
 
   defp create_player!(attrs) do
@@ -36,6 +37,14 @@ defmodule CodeHunt.Contest do
     Repo.one(from c in Hunting.CodeDrop, where: c.player_id == ^player.id, select: count())
   end
 
+  # For sorting leaders
+  defp unix_time_of_latest_claim(player) do
+    player.code_drops
+    |> Enum.map(&(&1.claim_date))
+    |> Enum.max(DateTime)
+    |> DateTime.to_unix()
+  end
+
   @doc """
   Gets the top n players with the highest scores, excluding players with 0 points
   """
@@ -43,7 +52,7 @@ defmodule CodeHunt.Contest do
     list_players()
     |> Enum.map(&{&1, player_score(&1)})
     |> Enum.reject(fn {_, score} -> score == 0 end)
-    |> Enum.sort_by(fn {p, score} -> {-1 * score, p.inserted_at} end)
+    |> Enum.sort_by(fn {p, score} -> {-1 * score, unix_time_of_latest_claim(p)} end)
     |> Enum.take(n)
   end
 end
