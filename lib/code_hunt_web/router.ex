@@ -74,6 +74,7 @@ defmodule CodeHuntWeb.Router do
     get "/drops", CodeDropController, :show_drops
     get "/players", ContestController, :show_players
     get "/full-leaderboard", ContestController, :full_leaderboard
+    get "/event-log", AdminController, :show_events
   end
 
   # Enables LiveDashboard only for development

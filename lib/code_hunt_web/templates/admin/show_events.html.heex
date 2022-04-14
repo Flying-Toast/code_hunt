@@ -1,0 +1,31 @@
+<h1>Event Log</h1>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Description</th>
+  </tr>
+  <%= for event_schema <- @events do %>
+    <% event = event_schema.event %>
+    <tr>
+      <td><%= event_schema.inserted_at |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %></td>
+      <td>
+        <%=
+          case event["kind"] do
+            "new_user" ->
+              "#{event["caseid"]} REGISTERS"
+
+            "rescan" ->
+              "#{event["scanner"]} RESCANS CODE #{event["drop_id"]}, OWNED BY #{event["owner"]}"
+
+            "good_claim" ->
+              "#{event["scanner"]} CLAIMS CODE #{event["drop_id"]}"
+
+            "mission_complete" ->
+              "#{event["caseid"]} COMPLETES MISSION #{event["mission_num"]}"
+          end
+        %>
+      </td>
+    </tr>
+  <% end %>
+</table>

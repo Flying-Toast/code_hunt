@@ -1,7 +1,7 @@
 defmodule CodeHuntWeb.AdminController do
   require EEx
   use CodeHuntWeb, :controller
-  alias CodeHunt.Hunting
+  alias CodeHunt.{Hunting, Telemetry}
 
   def index(conn, _params) do
     render(conn, "index.html")
@@ -12,5 +12,11 @@ defmodule CodeHuntWeb.AdminController do
 
     conn
     |> redirect(to: Routes.code_drop_path(conn, :show_code_sheet, sheet.id))
+  end
+
+  def show_events(conn, _params) do
+    events = Telemetry.chronoloical_events()
+
+    render(conn, "show_events.html", events: events)
   end
 end

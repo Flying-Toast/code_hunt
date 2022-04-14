@@ -3,6 +3,7 @@
   <li><%= link "View drops", to: Routes.code_drop_path(@conn, :show_drops) %></li>
   <li><%= link "View players", to: Routes.contest_path(@conn, :show_players) %></li>
   <li><%= link "Full leaderboard", to: Routes.contest_path(@conn, :full_leaderboard) %></li>
+  <li><%= link "Event log", to: Routes.admin_path(@conn, :show_events) %></li>
 </ul>
 
 <%= link "Home", to: Routes.page_path(@conn, :index) %>

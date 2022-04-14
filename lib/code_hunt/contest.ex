@@ -4,6 +4,7 @@ defmodule CodeHunt.Contest do
 
   alias CodeHunt.Contest.Player
   alias CodeHunt.Hunting
+  alias CodeHunt.Telemetry
 
   @doc """
   Gets (creating if it doesn't exist) a player by their caseid
@@ -30,6 +31,8 @@ defmodule CodeHunt.Contest do
   end
 
   defp create_player!(attrs) do
+    Telemetry.track_user_creation(attrs.caseid)
+
     %Player{}
     |> Player.changeset(attrs)
     |> Repo.insert!()
