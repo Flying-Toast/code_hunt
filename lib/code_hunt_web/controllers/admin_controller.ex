@@ -1,7 +1,7 @@
 defmodule CodeHuntWeb.AdminController do
   require EEx
   use CodeHuntWeb, :controller
-  alias CodeHunt.{Hunting, Telemetry}
+  alias CodeHunt.{Hunting, Contest, Telemetry}
 
   def index(conn, _params) do
     render(conn, "index.html")
@@ -18,5 +18,21 @@ defmodule CodeHuntWeb.AdminController do
     events = Telemetry.chronoloical_events()
 
     render(conn, "show_events.html", events: events)
+  end
+
+  def ban_player(conn, %{"caseid" => caseid, "ban_state" => ban_state}) do
+    case ban_state do
+      "ban" ->
+        Contest.set_ban_state_for_caseid(caseid, true)
+
+      "unban" ->
+        Contest.set_ban_state_for_caseid(caseid, false)
+    end
+
+    redirect(conn, to: Routes.admin_path(conn, :index))
+  end
+
+  def ban_form(conn, _params) do
+    render(conn, "ban_form.html")
   end
 end

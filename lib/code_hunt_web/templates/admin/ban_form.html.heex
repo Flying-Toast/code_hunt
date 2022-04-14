@@ -1,0 +1,15 @@
+<% action = Routes.admin_path(@conn, :ban_player) %>
+
+<p>(If you get 500 internal server error, it means the CaseID you entered doesn't exist)</p>
+<form method="post" action={action}>
+	<%= csrf_input_tag(action) %>
+	<div>
+		<label for="caseid">CaseID:</label>
+		<input name="caseid" type="text" class="light-bg">
+		<select name="ban_state" class="light-bg">
+			<option value="ban">Ban this bitch!</option>
+			<option value="unban">Un-ban</option>
+		</select>
+	</div>
+	<input type="submit" value="Submit" class="light-bg">
+</form>

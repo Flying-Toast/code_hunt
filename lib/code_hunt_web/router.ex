@@ -89,6 +89,8 @@ defmodule CodeHuntWeb.Router do
     get "/players", ContestController, :show_players
     get "/full-leaderboard", ContestController, :full_leaderboard
     get "/event-log", AdminController, :show_events
+    post "/ban/", AdminController, :ban_player
+    get "/ban-form", AdminController, :ban_form
   end
 
   # Enables LiveDashboard only for development

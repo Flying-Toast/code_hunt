@@ -10,13 +10,17 @@ defmodule CodeHunt.Contest do
   Gets (creating if it doesn't exist) a player by their caseid
   """
   def get_player_by_caseid(caseid) do
-    player = Repo.one(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops])
+    player = get_player_by_caseid_if_exists(caseid)
 
     if player do
       player
     else
       create_player!(%{caseid: caseid})
     end
+  end
+
+  defp get_player_by_caseid_if_exists(caseid) do
+    Repo.one(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops])
   end
 
   def points_needed_for_mission_1, do: 5
@@ -68,9 +72,12 @@ defmodule CodeHunt.Contest do
     end
   end
 
-  def ban_player(player) do
+  def set_ban_state_for_caseid(caseid, ban_state) do
+    player = get_player_by_caseid_if_exists(caseid)
+    true = player != nil
+
     player
-    |> Player.changeset(%{banned: true})
+    |> Player.changeset(%{banned: ban_state})
     |> Repo.update()
   end
 end
