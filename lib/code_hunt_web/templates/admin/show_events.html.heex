@@ -8,7 +8,7 @@
   <%= for event_schema <- @events do %>
     <% event = event_schema.event %>
     <tr>
-      <td><%= event_schema.inserted_at |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %></td>
+      <td><%= event_schema.inserted_at |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %></td>
       <td>
         <%=
           case event["kind"] do
