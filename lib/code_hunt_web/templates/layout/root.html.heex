@@ -12,7 +12,7 @@
       <%= @inner_content %>
 
       <script>
-        function scrambleEffect(element, finalText) {
+        function scrambleEffect(element, finalText, maxIterations) {
           const alphabet = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ,.1234567890";
 
           let currentText = "";
@@ -25,6 +25,7 @@
           element.textContent = currentText;
 
           let i = 0;
+          let iterations = 0;
           let timer = setInterval(() => {
             if (currentText === finalText) {
               clearInterval(timer);
@@ -43,11 +44,16 @@
             element.textContent = currentText;
 
             i = (i + 1) % currentText.length;
+
+            if (++iterations == maxIterations) {
+              element.textContent = finalText;
+              clearInterval(timer);
+            }
           }, 1);
         }
 
         Array.from(document.querySelectorAll(".scramble"))
-          .forEach(i => scrambleEffect(i, i.dataset.descrambled));
+          .forEach(i => scrambleEffect(i, i.dataset.descrambled, 400));
       </script>
   </body>
 </html>
