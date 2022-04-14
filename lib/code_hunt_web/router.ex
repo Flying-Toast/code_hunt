@@ -65,7 +65,6 @@ defmodule CodeHuntWeb.Router do
     pipe_through :browser
 
     get "/login", LoginController, :login
-    get "/logout", LoginController, :logout
     get "/auth", LoginController, :auth
     get "/who", PageController, :login_prompt
   end
@@ -76,6 +75,7 @@ defmodule CodeHuntWeb.Router do
 
     get "/", PageController, :index
     get "/claim/:secret_id", CodeDropController, :claim
+    get "/logout", LoginController, :logout
     get "/top", ContestController, :leaderboard
   end
 
