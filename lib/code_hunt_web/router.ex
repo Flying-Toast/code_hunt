@@ -46,9 +46,23 @@ defmodule CodeHuntWeb.Router do
     end
   end
 
+  def deny_banned_players(conn, _opts) do
+    if conn.assigns.me_player && conn.assigns.me_player.banned do
+      to_path = CodeHuntWeb.Router.Helpers.page_path(conn, :index)
+      if Phoenix.Controller.current_path(conn) != to_path do
+        redirect(conn, to: to_path)
+        |> halt()
+      else
+        conn
+      end
+    else
+      conn
+    end
+  end
+
   # Public pages
   scope "/", CodeHuntWeb do
-    pipe_through :browser
+    pipe_through [:browser, :deny_banned_players]
 
     get "/login", LoginController, :login
     get "/logout", LoginController, :logout
@@ -58,7 +72,7 @@ defmodule CodeHuntWeb.Router do
 
   # Pages that require login
   scope "/", CodeHuntWeb do
-    pipe_through [:browser, :require_login]
+    pipe_through [:browser, :require_login, :deny_banned_players]
 
     get "/", PageController, :index
     get "/claim/:secret_id", CodeDropController, :claim

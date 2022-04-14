@@ -1,2 +1,3 @@
-<p><%= if @drop.player.caseid == @me_player.caseid, do: "You", else: "Agent #{@drop.player.caseid}" %> already found this token. Please dispose of the QR code.</p>
+<% agent_name = if @drop.player.banned, do: "<REDACTED>", else: @drop.player.caseid %>
+<p><%= if @drop.player.caseid == @me_player.caseid, do: "You", else: "Agent #{agent_name}" %> already found this token. Please dispose of the QR code.</p>
 <p><%= link "Back", to: Routes.page_path(@conn, :index) %></p>

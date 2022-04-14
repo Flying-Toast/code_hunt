@@ -56,6 +56,7 @@ defmodule CodeHunt.Contest do
   def get_leaders(n) do
     leaders =
       list_players()
+      |> Enum.reject(&(&1.banned))
       |> Enum.map(&{&1, player_score(&1)})
       |> Enum.reject(fn {_, score} -> score == 0 end)
       |> Enum.sort_by(fn {p, score} -> {-1 * score, unix_time_of_latest_claim(p)} end)
@@ -65,5 +66,11 @@ defmodule CodeHunt.Contest do
     else
       Enum.take(leaders, n)
     end
+  end
+
+  def ban_player(player) do
+    player
+    |> Player.changeset(%{banned: true})
+    |> Repo.update()
   end
 end

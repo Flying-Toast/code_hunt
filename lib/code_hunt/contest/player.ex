@@ -5,6 +5,7 @@ defmodule CodeHunt.Contest.Player do
 
   schema "players" do
     field :caseid, :string, size: 10, null: false
+    field :banned, :boolean, default: false
     has_many :code_drops, Hunting.CodeDrop
 
     timestamps(type: :utc_datetime)
@@ -13,7 +14,7 @@ defmodule CodeHunt.Contest.Player do
   @doc false
   def changeset(player, attrs) do
     player
-    |> cast(attrs, [:caseid])
+    |> cast(attrs, [:caseid, :banned])
     |> validate_required([:caseid])
   end
 end
