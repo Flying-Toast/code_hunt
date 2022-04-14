@@ -1,4 +1,8 @@
-<h1><%= if @num_claimed >= @remaining_quota, do: "Welcome back", else: "Greetings" %>, Agent <%= @me_player.caseid %>.</h1>
+<%
+  descrambled_text = "#{if @num_claimed >= @remaining_quota, do: "Welcome back", else: "Greetings"}, Agent #{@me_player.caseid}."
+%>
+<h1 class="scramble" data-descrambled={descrambled_text}><noscript><%= descrambled_text %></noscript></h1>
+
 <p>You have <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
 <%= if @num_claimed >= @remaining_quota do %>
   <p>Mission 2 will commence shortly; you will be notified when it begins.</p>
