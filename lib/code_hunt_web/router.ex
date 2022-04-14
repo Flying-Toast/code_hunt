@@ -62,7 +62,7 @@ defmodule CodeHuntWeb.Router do
 
   # Public pages
   scope "/", CodeHuntWeb do
-    pipe_through [:browser, :deny_banned_players]
+    pipe_through :browser
 
     get "/login", LoginController, :login
     get "/logout", LoginController, :logout
