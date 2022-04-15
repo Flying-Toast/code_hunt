@@ -19,7 +19,8 @@ defmodule CodeHuntWeb.CodeDropController do
           Telemetry.track_good_claim(drop, conn.assigns.me_player)
 
           {:ok, _drop} = Hunting.claim_code_drop(drop, conn.assigns.me_player)
-          finished_mission_1 = length(conn.assigns.me_player.code_drops) == Contest.points_needed_for_mission_1()
+          num_claimed = 1 + length(conn.assigns.me_player.code_drops)
+          finished_mission_1 = num_claimed == Contest.points_needed_for_mission_1()
           if finished_mission_1 do
             Telemetry.track_mission_completion(conn.assigns.me_player, 1)
             render(conn, "mission_completed.html", mission_num: 1)
