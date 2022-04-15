@@ -11,6 +11,11 @@ defmodule CodeHuntWeb.Endpoint do
     same_site: "Lax"
   ]
 
+  def fudge_server_header(conn, _opts) do
+    put_resp_header(conn, "server", "your mom")
+  end
+  plug :fudge_server_header
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
