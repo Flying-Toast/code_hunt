@@ -5,7 +5,7 @@ defmodule CodeHunt.Hunting.CodeDrop do
 
   schema "code_drops" do
     field :claim_date, :utc_datetime
-    field :secret_id, :binary, null: false, size: 33
+    field :secret_id, :binary
     belongs_to :player, Contest.Player
     belongs_to :code_sheet, Hunting.CodeSheet
 

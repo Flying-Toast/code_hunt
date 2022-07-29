@@ -4,7 +4,7 @@ defmodule CodeHunt.Contest.Player do
   alias CodeHunt.Hunting
 
   schema "players" do
-    field :caseid, :string, size: 10, null: false
+    field :caseid, :string
     field :banned, :boolean, default: false
     has_many :code_drops, Hunting.CodeDrop
 

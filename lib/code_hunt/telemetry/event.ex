@@ -3,7 +3,7 @@ defmodule CodeHunt.Telemetry.Event do
   import Ecto.Changeset
 
   schema "events" do
-    field :event, :map, null: false
+    field :event, :map
 
     timestamps(type: :utc_datetime)
   end
