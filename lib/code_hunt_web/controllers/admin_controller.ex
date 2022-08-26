@@ -15,7 +15,7 @@ defmodule CodeHuntWeb.AdminController do
   end
 
   def show_events(conn, _params) do
-    events = Telemetry.chronoloical_events()
+    events = Telemetry.chronological_events()
 
     render(conn, "show_events.html", events: events)
   end

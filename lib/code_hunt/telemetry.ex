@@ -3,7 +3,7 @@ defmodule CodeHunt.Telemetry do
   alias CodeHunt.Repo
   alias CodeHunt.Telemetry.Event
 
-  def chronoloical_events do
+  def chronological_events do
     Repo.all(Event)
   end
 
