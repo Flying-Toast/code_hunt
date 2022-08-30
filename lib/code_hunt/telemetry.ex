@@ -3,8 +3,9 @@ defmodule CodeHunt.Telemetry do
   alias CodeHunt.Repo
   alias CodeHunt.Telemetry.Event
 
-  def chronological_events do
+  def reverse_chronological_events do
     Repo.all(Event)
+    |> Enum.reverse()
   end
 
   def track_user_creation(caseid) do
