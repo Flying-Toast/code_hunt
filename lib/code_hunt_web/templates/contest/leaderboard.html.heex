@@ -9,7 +9,7 @@
   <%= if player.caseid == @me_player.caseid do %>
     <p class="pre nomargin">|<span class="highlight"><%= place_col %></span> | <span class="highlight"><%= link player.caseid, class: "highlight", to: Routes.contest_path(@conn, :msg, player.caseid) %><%= caseid_padding %></span>| <span class="highlight"><%= score_col %></span>|</p>
   <% else %>
-    <p class="pre nomargin">|<%= place_col %> | <%= link player.caseid, to: Routes.contest_path(@conn, :msg, player.caseid) %><%= caseid_padding %>| <%= score_col %>|</p>
+    <p class="pre nomargin">|<%= place_col %> | <%= if player.msg != "", do: link(player.caseid, to: Routes.contest_path(@conn, :msg, player.caseid)), else: player.caseid %><%= caseid_padding %>| <%= score_col %>|</p>
   <% end %>
 <% end %>
 
