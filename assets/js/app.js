@@ -1,4 +1,4 @@
-function scrambleEffect(element, finalText, maxIterations) {
+function scrambleEffect(element, finalText) {
 	const alphabet = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ,.1234567890";
 
 	let currentText = "";
@@ -11,7 +11,6 @@ function scrambleEffect(element, finalText, maxIterations) {
 	element.textContent = currentText;
 
 	let i = 0;
-	let iterations = 0;
 	let timer = setInterval(() => {
 		if (currentText === finalText) {
 			clearInterval(timer);
@@ -30,15 +29,10 @@ function scrambleEffect(element, finalText, maxIterations) {
 		element.textContent = currentText;
 
 		i = (i + 1) % currentText.length;
-
-		if (++iterations == maxIterations) {
-			element.textContent = finalText;
-			clearInterval(timer);
-		}
 	}, 1);
 }
 
 addEventListener("load", () => {
 	Array.from(document.querySelectorAll(".scramble"))
-		.forEach(i => scrambleEffect(i, i.dataset.descrambled, 400));
+		.forEach(i => scrambleEffect(i, i.innerText, 4000000));
 });

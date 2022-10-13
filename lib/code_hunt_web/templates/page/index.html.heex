@@ -1,5 +1,4 @@
-<% descrambled_text = "Greetings, Agent #{@me_player.caseid}." %>
-<h1 class="scramble" data-descrambled={descrambled_text}><noscript><%= descrambled_text %></noscript></h1>
+<h1 class="scramble">Greetings, Agent <%= @me_player.caseid %></h1>
 
 <p>You have <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
 <%= if @remaining_quota == 0 do %>
