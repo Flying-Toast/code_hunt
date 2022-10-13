@@ -104,3 +104,11 @@ th {
 .msg {
   color: white;
 }
+
+textarea, button {
+  border: 2px solid var(--theme-color);
+}
+
+textarea {
+  margin-bottom: 4px;
+}
