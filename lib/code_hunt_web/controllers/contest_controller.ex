@@ -4,12 +4,12 @@ defmodule CodeHuntWeb.ContestController do
 
   def leaderboard(conn, _params) do
     leaders = Contest.get_leaders(10)
-    render(conn, "leaderboard.html", leaders: leaders)
+    render(conn, "leaderboard.html", leaders: leaders, link_to_full_leaderboard: true)
   end
 
   def full_leaderboard(conn, _params) do
     leaders = Contest.get_leaders(true)
-    render(conn, "leaderboard.html", leaders: leaders)
+    render(conn, "leaderboard.html", leaders: leaders, link_to_full_leaderboard: false)
   end
 
   def show_players(conn, _params) do

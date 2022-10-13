@@ -69,14 +69,21 @@ defmodule CodeHuntWeb.Router do
     get "/who", PageController, :login_prompt
   end
 
-  # Pages that require login
+  # Pages that require login, banned players ARE ALLOWED to access
+  scope "/", CodeHuntWeb do
+    pipe_through [:browser, :require_login]
+
+    get "/logout", LoginController, :logout
+  end
+
+  # Pages that require login, banned players ARE NOT ALLOWED to access
   scope "/", CodeHuntWeb do
     pipe_through [:browser, :require_login, :deny_banned_players]
 
     get "/", PageController, :index
     get "/claim/:secret_id", CodeDropController, :claim
-    get "/logout", LoginController, :logout
     get "/top", ContestController, :leaderboard
+    get "/all", ContestController, :full_leaderboard
   end
 
   scope "/admin", CodeHuntWeb do
@@ -87,7 +94,6 @@ defmodule CodeHuntWeb.Router do
     get "/codesheet/:id", CodeDropController, :show_code_sheet
     get "/drops", CodeDropController, :show_drops
     get "/players", ContestController, :show_players
-    get "/full-leaderboard", ContestController, :full_leaderboard
     get "/event-log", AdminController, :show_events
     post "/ban/", AdminController, :ban_player
     get "/ban-form", AdminController, :ban_form

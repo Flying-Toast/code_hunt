@@ -15,4 +15,9 @@
 
 <p class="nomargin">------|------------------|</p>
 
-<p><%= link "Back", to: Routes.page_path(@conn, :index) %></p>
+<p>
+  <%= if @link_to_full_leaderboard do %>
+    <%= link "...", to: Routes.contest_path(@conn, :full_leaderboard) %>
+  <% end %>
+  <%= link "Back", to: Routes.page_path(@conn, :index) %>
+</p>
