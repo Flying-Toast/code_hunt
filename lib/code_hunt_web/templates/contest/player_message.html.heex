@@ -1,0 +1,19 @@
+<h1>Message From <%= @player.caseid %>:</h1>
+
+<%= if @player.msg == "" do %>
+  &lt;<span class="msg">NULL</span>&gt;
+<% else %>
+  <p class="msg"><%= @player.msg %></p>
+<% end %>
+
+<%= if @show_form do %>
+  <% action = Routes.contest_path(@conn, :update_message) %>
+    <form method="post" action={action}>
+      <%= csrf_input_tag(action) %>
+      <textarea name="new_message" class="light-bg" rows="5" cols="60"></textarea>
+      <br>
+      <input type="submit" value="Update Message" class="light-bg">
+    </form>
+<% end %>
+
+<p><%= link "Back", to: Routes.page_path(@conn, :index) %></p>

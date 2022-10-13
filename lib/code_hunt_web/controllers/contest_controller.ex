@@ -17,4 +17,20 @@ defmodule CodeHuntWeb.ContestController do
 
     render(conn, "show_players.html", players: players)
   end
+
+  def msg(conn, %{"caseid" => caseid}) do
+    player = Contest.get_player_by_caseid(caseid)
+
+    if conn.assigns.me_player.caseid == caseid do
+      render(conn, "player_message.html", player: player, show_form: true)
+    else
+      render(conn, "player_message.html", player: player, show_form: false)
+    end
+  end
+
+  def update_message(conn, %{"new_message" => new_message}) do
+    Contest.set_player_message(conn.assigns.me_player.caseid, new_message)
+
+    redirect(conn, to: Routes.contest_path(conn, :msg, conn.assigns.me_player.caseid))
+  end
 end

@@ -4,12 +4,12 @@
 
 <%= for {{player, score}, place} <- Enum.with_index(@leaders, 1) do %>
   <% place_col = "#{place}." |> String.pad_leading(4) %>
-  <% player_col = String.pad_trailing(player.caseid, 8) %>
+  <% caseid_padding = String.duplicate(" ", 8 - String.length(player.caseid)) %>
   <% score_col = String.pad_trailing(to_string(score), 7) %>
   <%= if player.caseid == @me_player.caseid do %>
-    <p class="pre nomargin">|<span class="highlight"><%= place_col %></span> | <span class="highlight"><%= player_col %></span>| <span class="highlight"><%= score_col %></span>|</p>
+    <p class="pre nomargin">|<span class="highlight"><%= place_col %></span> | <span class="highlight"><%= link player.caseid, class: "highlight", to: Routes.contest_path(@conn, :msg, player.caseid) %><%= caseid_padding %></span>| <span class="highlight"><%= score_col %></span>|</p>
   <% else %>
-    <p class="pre nomargin">|<%= place_col %> | <%= player_col %>| <%= score_col %>|</p>
+    <p class="pre nomargin">|<%= place_col %> | <%= link player.caseid, to: Routes.contest_path(@conn, :msg, player.caseid) %><%= caseid_padding %>| <%= score_col %>|</p>
   <% end %>
 <% end %>
 

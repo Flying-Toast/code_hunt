@@ -80,4 +80,10 @@ defmodule CodeHunt.Contest do
     |> Player.changeset(%{banned: ban_state})
     |> Repo.update()
   end
+
+  def set_player_message(caseid, message) do
+    get_player_by_caseid(caseid)
+    |> Player.changeset(%{msg: message})
+    |> Repo.update()
+  end
 end
