@@ -21,6 +21,9 @@ h2 {
 * {
   font-family: monospace;
   color: var(--theme-color);
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -webkit-appearance: none;
 }
 
 #bt {
