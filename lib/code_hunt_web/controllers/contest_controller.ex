@@ -25,8 +25,10 @@ defmodule CodeHuntWeb.ContestController do
   end
 
   def update_message(conn, %{"new_message" => new_message}) do
-    Contest.set_player_message(conn.assigns.me_player.caseid, new_message)
-    CodeHunt.Telemetry.track_new_message(conn.assigns.me_player.caseid, new_message)
+    if new_message != conn.assigns.me_player.msg do
+      Contest.set_player_message(conn.assigns.me_player.caseid, new_message)
+      CodeHunt.Telemetry.track_new_message(conn.assigns.me_player.caseid, new_message)
+    end
 
     redirect(conn, to: Routes.contest_path(conn, :msg, conn.assigns.me_player.caseid))
   end
