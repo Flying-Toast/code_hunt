@@ -1,4 +1,5 @@
-<h1>Agent <%= @player.caseid %>: <%= CodeHunt.Contest.player_score(@player) %> token(s)</h1>
+<h1>== <%= @player.caseid %> ==</h1>
+<h2><%= CodeHunt.Contest.player_score(@player) %> token(s). Agent Since <%= @player.inserted_at |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>.</h2>
 
 <%= if @player.msg != "" do %>
   <p class="msg"><%= @player.msg %></p>
