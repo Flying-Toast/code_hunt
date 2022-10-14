@@ -23,6 +23,9 @@
 
             "mission_complete" ->
               "#{event["caseid"]} COMPLETES MISSION #{event["mission_num"]}"
+
+            "message_changed" ->
+              "#{event["caseid"]} CHANGES MESSAGE TO `#{event["msg"]}`"
           end
         %>
       </td>

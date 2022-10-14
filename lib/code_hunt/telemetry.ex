@@ -24,6 +24,10 @@ defmodule CodeHunt.Telemetry do
     create_event(%{kind: :mission_complete, caseid: player.caseid, mission_num: mission_num})
   end
 
+  def track_new_message(caseid, new_message) do
+    create_event(%{kind: :message_changed, caseid: caseid, msg: new_message})
+  end
+
   defp create_event(event) do
     event.kind
 
