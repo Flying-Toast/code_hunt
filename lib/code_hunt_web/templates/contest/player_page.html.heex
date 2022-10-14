@@ -2,7 +2,7 @@
 <% score = CodeHunt.Contest.player_score(@player) %>
 <h2><%= score %> <%= if score == 1, do: "token", else: "tokens" %></h2>
 
-<%= if @player.msg != "" do %>
+<%= if @show_form || @player.msg != "" do %>
   <br>
   <h2>Bio:</h2>
   <%= if @show_form do %>
