@@ -1,5 +1,6 @@
 <h1>== <%= @player.caseid %> ==</h1>
-<h2><%= CodeHunt.Contest.player_score(@player) %> token(s). Agent Since <%= @player.inserted_at |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>.</h2>
+<% score = CodeHunt.Contest.player_score(@player) %>
+<h2><%= score %> <%= if score == 1, do: "token", else: "tokens" %>. Agent Since <%= @player.inserted_at |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>.</h2>
 
 <%= if @player.msg != "" do %>
   <br>
