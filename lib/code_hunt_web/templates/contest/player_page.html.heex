@@ -4,18 +4,18 @@
 <%= if @player.msg != "" do %>
   <br>
   <h2>Bio:</h2>
-  <p class="msg"><%= @player.msg %></p>
-  <br>
-<% end %>
-
-<%= if @show_form do %>
-  <% action = Routes.contest_path(@conn, :update_message) %>
+  <%= if @show_form do %>
+    <% action = Routes.contest_path(@conn, :update_message) %>
     <form method="post" action={action}>
       <%= csrf_input_tag(action) %>
-      <textarea name="new_message" class="light-bg" rows="5" cols="60"></textarea>
+      <textarea name="new_message" class="light-bg" rows="5" cols="60"><%= @player.msg %></textarea>
       <br>
-      <input type="submit" value="Update Message" class="light-bg">
+      <input type="submit" value="Update" class="light-bg">
     </form>
+  <% else %>
+    <p class="msg"><%= @player.msg %></p>
+  <% end %>
+  <br>
 <% end %>
 
 <p><%= link "Back", to: Routes.contest_path(@conn, :leaderboard) %></p>
