@@ -19,7 +19,7 @@ defmodule CodeHuntWeb.ContestController do
   end
 
   def msg(conn, %{"caseid" => caseid}) do
-    player = Contest.get_player_by_caseid(caseid)
+    player = Contest.get_player_by_caseid!(caseid)
 
     render(conn, "player_message.html", player: player, show_form: conn.assigns.me_player.caseid == caseid)
   end

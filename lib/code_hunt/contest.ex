@@ -9,7 +9,7 @@ defmodule CodeHunt.Contest do
   @doc """
   Gets (creating if it doesn't exist) a player by their caseid
   """
-  def get_player_by_caseid(caseid) do
+  def get_or_create_player_by_caseid(caseid) do
     player = get_player_by_caseid_if_exists(caseid)
 
     if player do
@@ -17,6 +17,10 @@ defmodule CodeHunt.Contest do
     else
       create_player!(%{caseid: caseid})
     end
+  end
+
+  def get_player_by_caseid!(caseid) do
+    Repo.one!(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops])
   end
 
   defp get_player_by_caseid_if_exists(caseid) do
@@ -82,7 +86,7 @@ defmodule CodeHunt.Contest do
   end
 
   def set_player_message(caseid, message) do
-    get_player_by_caseid(caseid)
+    get_or_create_player_by_caseid(caseid)
     |> Player.changeset(%{msg: message})
     |> Repo.update()
   end

@@ -14,7 +14,7 @@ defmodule CodeHuntWeb.Router do
     caseid = Plug.Conn.get_session(conn, :caseid)
     me =
       if caseid do
-        CodeHunt.Contest.get_player_by_caseid(caseid)
+        CodeHunt.Contest.get_or_create_player_by_caseid(caseid)
       else
         nil
       end
