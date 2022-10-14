@@ -1,8 +1,6 @@
-<h1>Message From <%= @player.caseid %>:</h1>
+<h1><%= @player.caseid %> (<%= CodeHunt.Contest.player_score(@player) %> token)</h1>
 
-<%= if @player.msg == "" do %>
-  &lt;<span class="msg">NULL</span>&gt;
-<% else %>
+<%= if @player.msg != "" do %>
   <p class="msg"><%= @player.msg %></p>
 <% end %>
 

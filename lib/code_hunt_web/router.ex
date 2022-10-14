@@ -84,7 +84,7 @@ defmodule CodeHuntWeb.Router do
     get "/claim/:secret_id", CodeDropController, :claim
     get "/top", ContestController, :leaderboard
     get "/all", ContestController, :full_leaderboard
-    get "/msg/:caseid", ContestController, :msg
+    get "/agent/:caseid", ContestController, :msg
     post "/post-msg", ContestController, :update_message
   end
 
