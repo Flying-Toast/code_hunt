@@ -13,7 +13,7 @@ defmodule CodeHuntWeb.CodeDropController do
 
         render(conn, "already_claimed.html", drop: drop)
       else
-        if Contest.is_admin(conn.assigns.me_player) do
+        if false && Contest.is_admin(conn.assigns.me_player) do
           text(conn, "Admins can't claim codes, silly. That would be cheating.")
         else
           Telemetry.track_good_claim(drop, conn.assigns.me_player)
