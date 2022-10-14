@@ -105,8 +105,12 @@ th {
   color: white;
 }
 
-textarea, button {
+textarea, input[type="submit"] {
   border: 2px solid var(--theme-color);
+}
+
+input[type="submit"] {
+  cursor: pointer;
 }
 
 textarea {
