@@ -2,7 +2,10 @@
 <h2><%= CodeHunt.Contest.player_score(@player) %> token(s). Agent Since <%= @player.inserted_at |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>.</h2>
 
 <%= if @player.msg != "" do %>
+  <br>
+  <h2>Bio:</h2>
   <p class="msg"><%= @player.msg %></p>
+  <br>
 <% end %>
 
 <%= if @show_form do %>
