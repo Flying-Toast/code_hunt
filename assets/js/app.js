@@ -34,5 +34,5 @@ function scrambleEffect(element, finalText) {
 
 addEventListener("load", () => {
 	Array.from(document.querySelectorAll(".scramble"))
-		.forEach(i => scrambleEffect(i, i.innerText, 4000000));
+		.forEach(i => scrambleEffect(i, i.innerText));
 });
