@@ -4,6 +4,7 @@ defmodule CodeHuntWeb.ContestController do
 
   def leaderboard(conn, _params) do
     leaders = Contest.get_leaders(10)
+    CodeHunt.Telemetry.track_leaderboard_view(conn.assigns.me_player.caseid)
     render(conn, "leaderboard.html", leaders: leaders, link_to_full_leaderboard: true)
   end
 

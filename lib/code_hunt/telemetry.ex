@@ -28,6 +28,12 @@ defmodule CodeHunt.Telemetry do
     create_event(%{kind: :message_changed, caseid: caseid, msg: new_message})
   end
 
+  def track_leaderboard_view(caseid) do
+    if !Repo.exists?(from e in Event, where: e.event["kind"] == "seen_leaderboard") do
+      create_event(%{kind: :seen_leaderboard, caseid: caseid})
+    end
+  end
+
   defp create_event(event) do
     event.kind
 
