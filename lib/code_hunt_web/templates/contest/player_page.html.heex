@@ -9,7 +9,7 @@
     <% action = Routes.contest_path(@conn, :update_message) %>
     <form method="post" action={action}>
       <%= csrf_input_tag(action) %>
-      <textarea name="new_message" class="light-bg" rows="5" cols="60"><%= @player.msg %></textarea>
+      <textarea name="new_message" class="light-bg" rows="7" cols="40" spellcheck="false"><%= @player.msg %></textarea>
       <br>
       <input type="submit" value="Update" class="light-bg">
     </form>
