@@ -29,7 +29,7 @@ defmodule CodeHunt.Telemetry do
   end
 
   def track_leaderboard_view(caseid) do
-    if !Repo.exists?(from e in Event, where: e.event["kind"] == "seen_leaderboard") do
+    if !Repo.exists?(from e in Event, where: e.event["kind"] == "seen_leaderboard" and e.event["caseid"] == ^caseid) do
       create_event(%{kind: :seen_leaderboard, caseid: caseid})
     end
   end
