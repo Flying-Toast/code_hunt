@@ -30,7 +30,11 @@ defmodule CodeHunt.Contest do
   def points_needed_for_mission_1, do: 5
 
   def is_admin(player) do
-    player.caseid in Application.fetch_env!(:code_hunt, :admins)
+    caseid_is_admin(player.caseid)
+  end
+
+  def caseid_is_admin(caseid) do
+    caseid in Application.fetch_env!(:code_hunt, :admins)
   end
 
   def list_players() do

@@ -35,7 +35,9 @@ defmodule CodeHunt.Telemetry do
   end
 
   def track_page_view(caseid, url) do
-    create_event(%{kind: :page_view, caseid: caseid, url: url})
+    if !CodeHunt.Contest.caseid_is_admin(caseid) do
+      create_event(%{kind: :page_view, caseid: caseid, url: url})
+    end
   end
 
   defp create_event(event) do
