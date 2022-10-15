@@ -112,8 +112,12 @@ th {
   color: white;
 }
 
-textarea, input[type="submit"] {
+textarea, input, button {
   border: 2px solid var(--theme-color);
+}
+
+:where(textarea, input, button):focus {
+  outline: 2px solid var(--theme-color);
 }
 
 input[type="submit"] {
