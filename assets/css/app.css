@@ -120,7 +120,7 @@ textarea, input, button {
   outline: 2px solid var(--theme-color);
 }
 
-input[type="submit"] {
+input[type="submit"], button {
   cursor: pointer;
 }
 
