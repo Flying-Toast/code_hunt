@@ -60,6 +60,11 @@ defmodule CodeHuntWeb.Router do
     end
   end
 
+  def track_pageviews(conn, _opts) do
+    CodeHunt.Telemetry.track_page_view(conn.assigns.me_player.caseid, Phoenix.Controller.current_path(conn))
+    conn
+  end
+
   # Public pages
   scope "/", CodeHuntWeb do
     pipe_through :browser
@@ -78,7 +83,7 @@ defmodule CodeHuntWeb.Router do
 
   # Pages that require login, banned players ARE NOT ALLOWED to access
   scope "/", CodeHuntWeb do
-    pipe_through [:browser, :require_login, :deny_banned_players]
+    pipe_through [:browser, :require_login, :track_pageviews, :deny_banned_players]
 
     get "/", PageController, :index
     get "/claim/:secret_id", CodeDropController, :claim

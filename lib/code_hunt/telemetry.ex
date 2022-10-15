@@ -34,6 +34,10 @@ defmodule CodeHunt.Telemetry do
     end
   end
 
+  def track_page_view(caseid, url) do
+    create_event(%{kind: :page_view, caseid: caseid, url: url})
+  end
+
   defp create_event(event) do
     event.kind
 
