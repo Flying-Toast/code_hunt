@@ -24,6 +24,9 @@ h2 {
   color: var(--theme-color);
   border-radius: 0;
   -webkit-border-radius: 0;
+}
+
+:not(select) {
   -webkit-appearance: none;
 }
 
