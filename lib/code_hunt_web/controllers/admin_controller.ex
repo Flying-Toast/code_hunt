@@ -1,7 +1,7 @@
 defmodule CodeHuntWeb.AdminController do
   require EEx
   use CodeHuntWeb, :controller
-  alias CodeHunt.{Hunting, Contest, Telemetry}
+  alias CodeHunt.{Hunting, Contest, Telemetry, Site}
 
   def index(conn, _params) do
     render(conn, "index.html")
@@ -34,5 +34,29 @@ defmodule CodeHuntWeb.AdminController do
 
   def ban_form(conn, _params) do
     render(conn, "ban_form.html")
+  end
+
+  def show_mod_messages(conn, _params) do
+    messages = Site.list_mod_messages()
+    render(conn, "show_mod_messages.html", messages: messages)
+  end
+
+  def mod_message_form(conn, _params) do
+    render(conn, "mod_message_form.html")
+  end
+
+  def create_mod_message(conn, %{"caseid" => caseid, "message" => message}) do
+    player = Contest.get_player_by_caseid!(caseid)
+    Site.create_mod_message(player, message)
+
+    redirect(conn, to: Routes.admin_path(conn, :show_mod_messages))
+  end
+
+  def delete_mod_message(conn, %{"id" => id}) do
+    {int_id, ""} = Integer.parse(id)
+    IO.puts(int_id)
+    Site.delete_mod_message!(int_id)
+
+    redirect(conn, to: Routes.admin_path(conn, :show_mod_messages))
   end
 end

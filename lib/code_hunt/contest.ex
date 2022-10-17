@@ -20,11 +20,11 @@ defmodule CodeHunt.Contest do
   end
 
   def get_player_by_caseid!(caseid) do
-    Repo.one!(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops])
+    Repo.one!(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops, :mod_messages])
   end
 
   defp get_player_by_caseid_if_exists(caseid) do
-    Repo.one(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops])
+    Repo.one(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops, :mod_messages])
   end
 
   def points_needed_for_mission_1, do: 5

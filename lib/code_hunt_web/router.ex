@@ -104,6 +104,13 @@ defmodule CodeHuntWeb.Router do
     get "/event-log", AdminController, :show_events
     post "/ban/", AdminController, :ban_player
     get "/ban-form", AdminController, :ban_form
+
+    scope "/mod-messages" do
+      get "/", AdminController, :show_mod_messages
+      get "/form", AdminController, :mod_message_form
+      post "/create", AdminController, :create_mod_message
+      post "/delete/:id", AdminController, :delete_mod_message
+    end
   end
 
   # Enables LiveDashboard only for development

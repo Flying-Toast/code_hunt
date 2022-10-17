@@ -1,0 +1,13 @@
+<% action = Routes.admin_path(@conn, :create_mod_message) %>
+
+<p>(If you get 500 internal server error, it means the CaseID you entered doesn't exist)</p>
+<form method="post" action={action}>
+	<%= csrf_input_tag(action) %>
+	<div>
+		<label for="caseid">CaseID:</label>
+		<input name="caseid" type="text" class="light-bg">
+		<br>
+		<textarea name="message" class="light-bg" rows="7" cols="40"></textarea>
+	</div>
+	<input type="submit" value="Submit" class="light-bg">
+</form>

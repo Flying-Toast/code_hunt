@@ -1,5 +1,6 @@
 :root {
   --theme-color: #78D769;
+  --important-color: #D54242;
   --highlight-color: orange;
   --bg-color: black;
   --light-bg-color: #1A1A1A;
@@ -44,6 +45,11 @@ h2 {
 
 .highlight {
   color: var(--highlight-color);
+}
+
+.important {
+  color: var(--important-color);
+  font-weight: bold;
 }
 
 li {

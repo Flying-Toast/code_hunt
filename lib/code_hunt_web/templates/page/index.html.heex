@@ -7,6 +7,11 @@
 <% else %>
   <p>To complete your first mission, you must find <%= @remaining_quota %> more.</p>
 <% end %>
+
+<%= for mod_message <- CodeHunt.Site.mod_messages_for(@me_player) do %>
+    <p class="important"><%= mod_message.message %></p>
+<% end %>
+
 <%= link "Log out", to: Routes.login_path(@conn, :logout) %>
 
 <a id="bt" href={Routes.contest_path(@conn, :leaderboard)}>QWERTY</a>

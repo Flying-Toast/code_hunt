@@ -1,13 +1,14 @@
 defmodule CodeHunt.Contest.Player do
   use Ecto.Schema
   import Ecto.Changeset
-  alias CodeHunt.Hunting
+  alias CodeHunt.{Hunting, Site}
 
   schema "players" do
     field :caseid, :string
     field :banned, :boolean, default: false
     field :msg, :string, default: ""
     has_many :code_drops, Hunting.CodeDrop
+    has_many :mod_messages, Site.ModMessage
 
     timestamps(type: :utc_datetime)
   end

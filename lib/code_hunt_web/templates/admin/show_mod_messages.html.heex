@@ -1,0 +1,17 @@
+<p>
+	<%= link "New mod message", to: Routes.admin_path(@conn, :mod_message_form) %>
+</p>
+
+<ul>
+	<%= for msg <- @messages do %>
+		<% delete_action = Routes.admin_path(@conn, :delete_mod_message, msg.id) %>
+		<li>
+			For <%= msg.player.caseid %>: `<%= msg.message %>`
+			<form style="display:inline;" method="post" action={delete_action}>
+				<%= csrf_input_tag(delete_action) %>
+				<input type="hidden" name="id" value={msg.player.id}>
+				<input type="submit" value="Delete" class="light-bg">
+			</form>
+		</li>
+	<% end %>
+</ul>
