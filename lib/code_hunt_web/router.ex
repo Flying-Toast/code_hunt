@@ -102,6 +102,7 @@ defmodule CodeHuntWeb.Router do
     get "/drops", CodeDropController, :show_drops
     get "/players", ContestController, :show_players
     get "/event-log", AdminController, :show_events
+    get "/request-log", AdminController, :show_requests
     post "/ban/", AdminController, :ban_player
     get "/ban-form", AdminController, :ban_form
 

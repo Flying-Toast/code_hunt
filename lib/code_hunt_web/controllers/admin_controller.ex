@@ -20,6 +20,12 @@ defmodule CodeHuntWeb.AdminController do
     render(conn, "show_events.html", events: events)
   end
 
+  def show_requests(conn, _params) do
+    reqs = Telemetry.reverse_chronological_requests()
+
+    render(conn, "show_events.html", events: reqs)
+  end
+
   def ban_player(conn, %{"caseid" => caseid, "ban_state" => ban_state}) do
     case ban_state do
       "ban" ->

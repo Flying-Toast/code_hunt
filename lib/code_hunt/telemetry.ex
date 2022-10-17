@@ -4,7 +4,12 @@ defmodule CodeHunt.Telemetry do
   alias CodeHunt.Telemetry.Event
 
   def reverse_chronological_events do
-    Repo.all(Event)
+    Repo.all(from e in Event, where: e.event["kind"] != "page_view")
+    |> Enum.reverse()
+  end
+
+  def reverse_chronological_requests do
+    Repo.all(from e in Event, where: e.event["kind"] == "page_view")
     |> Enum.reverse()
   end
 

@@ -3,6 +3,7 @@
   <li><%= link "View drops", to: Routes.code_drop_path(@conn, :show_drops) %></li>
   <li><%= link "View players", to: Routes.contest_path(@conn, :show_players) %></li>
   <li><%= link "Event log", to: Routes.admin_path(@conn, :show_events) %></li>
+  <li><%= link "Request log", to: Routes.admin_path(@conn, :show_requests) %></li>
   <li><%= link "Ban/Unban", to: Routes.admin_path(@conn, :ban_form) %></li>
   <li><%= link "Mod messages", to: Routes.admin_path(@conn, :show_mod_messages) %></li>
 </ul>
