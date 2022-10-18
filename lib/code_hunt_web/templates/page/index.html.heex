@@ -9,7 +9,8 @@
 <% end %>
 
 <%= for mod_message <- CodeHunt.Site.mod_messages_for(@me_player) do %>
-    <p class="important"><%= mod_message.message %></p>
+  <% CodeHunt.Site.mod_message_seen(mod_message) %>
+  <p class="important"><%= mod_message.message %></p>
 <% end %>
 
 <%= link "Log out", to: Routes.login_path(@conn, :logout) %>

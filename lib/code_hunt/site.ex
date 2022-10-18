@@ -18,6 +18,12 @@ defmodule CodeHunt.Site do
     Repo.all(from m in ModMessage, where: m.player_id == ^player.id, preload: [:player])
   end
 
+  def mod_message_seen(msg) do
+    msg
+    |> ModMessage.changeset(%{seen: true})
+    |> Repo.update()
+  end
+
   def list_mod_messages() do
     Repo.all(from m in ModMessage, preload: [:player], select: m)
   end

@@ -6,6 +6,9 @@
 	<%= for msg <- @messages do %>
 		<% delete_action = Routes.admin_path(@conn, :delete_mod_message, msg.id) %>
 		<li>
+			<%= if msg.seen do %>
+				<span class="highlight">(SEEN)</span>
+			<% end %>
 			For <%= msg.player.caseid %>: `<%= msg.message %>`
 			<form style="display:inline;" method="post" action={delete_action}>
 				<%= csrf_input_tag(delete_action) %>
