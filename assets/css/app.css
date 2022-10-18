@@ -134,7 +134,10 @@ input[type="submit"], button {
   cursor: pointer;
 }
 
+input[type="text"], textarea {
+  color: var(--secondary-color);
+}
+
 textarea {
   margin-bottom: 4px;
-  color: var(--secondary-color);
 }

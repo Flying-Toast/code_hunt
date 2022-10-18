@@ -1,6 +1,6 @@
 <% action = Routes.admin_path(@conn, :create_mod_message) %>
 
-<p>(If you get 500 internal server error, it means the CaseID you entered doesn't exist)</p>
+<p>(If you get 500 internal server error, it means the CaseID you entered doesn't exist, or the message was empty)</p>
 <form method="post" action={action}>
 	<%= csrf_input_tag(action) %>
 	<div>
