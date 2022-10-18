@@ -8,8 +8,7 @@
   <p>To complete your first mission, you must find <%= @remaining_quota %> more.</p>
 <% end %>
 
-<%= for mod_message <- CodeHunt.Site.mod_messages_for(@me_player) do %>
-  <% CodeHunt.Site.mod_message_seen(mod_message) %>
+<%= for mod_message <- @mod_messages do %>
   <p class="important"><%= mod_message.message %></p>
 <% end %>
 

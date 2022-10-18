@@ -8,7 +8,9 @@ defmodule CodeHuntWeb.PageController do
     else
       num_claimed = Contest.player_score(conn.assigns.me_player)
       remaining_quota = max(Contest.points_needed_for_mission_1() - num_claimed, 0)
-      render(conn, "index.html", num_claimed: num_claimed, remaining_quota: remaining_quota)
+      mod_messages = CodeHunt.Site.mod_messages_for(conn.assigns.me_player)
+      for msg <- mod_messages, do: CodeHunt.Site.mod_message_seen(msg)
+      render(conn, "index.html", num_claimed: num_claimed, remaining_quota: remaining_quota, mod_messages: mod_messages)
     end
   end
 
