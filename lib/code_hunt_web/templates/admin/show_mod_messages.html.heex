@@ -4,7 +4,7 @@
 
 <ul>
 	<%= for msg <- @messages do %>
-		<% delete_action = Routes.admin_path(@conn, :delete_mod_message, msg.id) %>
+		<% delete_action = Routes.admin_path(@conn, :delete_mod_message) %>
 		<li>
 			<%= if msg.seen do %>
 				<span class="highlight">(SEEN)</span>
@@ -12,7 +12,7 @@
 			For <%= msg.player.caseid %>: <span class="secondary"><%= msg.message %></span>
 			<form style="display:inline;" method="post" action={delete_action}>
 				<%= csrf_input_tag(delete_action) %>
-				<input type="hidden" name="id" value={msg.player.id}>
+				<input type="hidden" name="id" value={msg.id}>
 				<input type="submit" value="Delete" class="light-bg">
 			</form>
 		</li>

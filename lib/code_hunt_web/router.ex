@@ -110,7 +110,7 @@ defmodule CodeHuntWeb.Router do
       get "/", AdminController, :show_mod_messages
       get "/form", AdminController, :mod_message_form
       post "/create", AdminController, :create_mod_message
-      post "/delete/:id", AdminController, :delete_mod_message
+      post "/delete", AdminController, :delete_mod_message
     end
   end
 
