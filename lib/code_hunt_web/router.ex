@@ -76,7 +76,7 @@ defmodule CodeHuntWeb.Router do
 
   # Pages that require login, banned players ARE ALLOWED to access
   scope "/", CodeHuntWeb do
-    pipe_through [:browser, :require_login]
+    pipe_through [:browser, :require_login, :track_pageviews]
 
     get "/logout", LoginController, :logout
   end
