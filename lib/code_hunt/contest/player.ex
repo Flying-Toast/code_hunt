@@ -6,6 +6,7 @@ defmodule CodeHunt.Contest.Player do
   schema "players" do
     field :caseid, :string
     field :banned, :boolean, default: false
+    field :ban_reason, :string, default: ""
     field :msg, :string, default: ""
     has_many :code_drops, Hunting.CodeDrop
     has_many :mod_messages, Site.ModMessage
@@ -16,7 +17,7 @@ defmodule CodeHunt.Contest.Player do
   @doc false
   def changeset(player, attrs) do
     player
-    |> cast(attrs, [:caseid, :banned, :msg])
+    |> cast(attrs, [:caseid, :banned, :msg, :ban_reason])
     |> validate_required([:caseid])
     |> validate_length(:msg, max: 300)
   end

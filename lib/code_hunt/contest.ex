@@ -95,6 +95,15 @@ defmodule CodeHunt.Contest do
     |> Repo.update()
   end
 
+  def set_ban_reason_for_caseid(caseid, reason) do
+    player = get_player_by_caseid_if_exists(caseid)
+    true = player != nil
+
+    player
+    |> Player.changeset(%{ban_reason: reason})
+    |> Repo.update()
+  end
+
   def set_player_message(caseid, message) do
     get_or_create_player_by_caseid(caseid)
     |> Player.changeset(%{msg: message})

@@ -26,13 +26,15 @@ defmodule CodeHuntWeb.AdminController do
     render(conn, "show_events.html", events: reqs)
   end
 
-  def ban_player(conn, %{"caseid" => caseid, "ban_state" => ban_state}) do
+  def ban_player(conn, %{"caseid" => caseid, "ban_state" => ban_state, "reason" => reason}) do
     case ban_state do
       "ban" ->
         Contest.set_ban_state_for_caseid(caseid, true)
+        Contest.set_ban_reason_for_caseid(caseid, reason)
 
       "unban" ->
         Contest.set_ban_state_for_caseid(caseid, false)
+        Contest.set_ban_reason_for_caseid(caseid, "")
     end
 
     redirect(conn, to: Routes.admin_path(conn, :index))

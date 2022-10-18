@@ -4,7 +4,8 @@ defmodule CodeHuntWeb.PageController do
 
   def index(conn, _params) do
     if conn.assigns.me_player.banned do
-      render(conn, "banned.html")
+      ban_reason = conn.assigns.me_player.ban_reason
+      render(conn, "banned.html", ban_reason: ban_reason)
     else
       num_claimed = Contest.player_score(conn.assigns.me_player)
       remaining_quota = max(Contest.points_needed_for_mission_1() - num_claimed, 0)
