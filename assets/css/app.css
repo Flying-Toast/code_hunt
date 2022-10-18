@@ -2,6 +2,7 @@
   --theme-color: #78D769;
   --important-color: #D54242;
   --highlight-color: orange;
+  --secondary-color: white;
   --bg-color: black;
   --light-bg-color: #1A1A1A;
 }
@@ -34,7 +35,7 @@ h2 {
   position: absolute;
   bottom: 0;
   right: 0;
-  color: white;
+  color: var(--secondary-color);
   font-size: 200%;
 }
 
@@ -53,6 +54,10 @@ h2 {
 .important {
   color: var(--important-color);
   font-weight: bold;
+}
+
+.secondary {
+  color: var(--secondary-color);
 }
 
 li {
@@ -117,10 +122,6 @@ th {
   text-align: center;
 }
 
-.msg {
-  color: white;
-}
-
 textarea, input, button {
   border: 2px solid var(--theme-color);
 }
@@ -135,5 +136,5 @@ input[type="submit"], button {
 
 textarea {
   margin-bottom: 4px;
-  color: white;
+  color: var(--secondary-color);
 }
