@@ -1,6 +1,9 @@
 <h1>== <%= @player.caseid %> ==</h1>
 <% score = CodeHunt.Contest.player_score(@player) %>
 <h2><%= score %> <%= if score == 1, do: "token", else: "tokens" %></h2>
+<%= if @earliest_claim_or_nil do %>
+  <h2>Agent since <%= @earliest_claim_or_nil |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %></h2>
+<% end %>
 
 <%= if @show_form || @player.msg != "" do %>
   <br>

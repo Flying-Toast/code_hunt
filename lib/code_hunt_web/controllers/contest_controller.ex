@@ -21,8 +21,10 @@ defmodule CodeHuntWeb.ContestController do
 
   def msg(conn, %{"caseid" => caseid}) do
     player = Contest.get_player_by_caseid!(caseid)
+    show_form = conn.assigns.me_player.caseid == caseid
+    earliest_claim = Contest.time_of_first_claim_or_nil(player)
 
-    render(conn, "player_page.html", player: player, show_form: conn.assigns.me_player.caseid == caseid)
+    render(conn, "player_page.html", player: player, show_form: show_form, earliest_claim_or_nil: earliest_claim)
   end
 
   def update_message(conn, %{"new_message" => new_message}) do

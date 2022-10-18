@@ -62,6 +62,12 @@ defmodule CodeHunt.Contest do
     |> DateTime.to_unix()
   end
 
+  def time_of_first_claim_or_nil(player) do
+    player.code_drops
+    |> Enum.map(&(&1.claim_date))
+    |> Enum.min(DateTime, fn -> nil end)
+  end
+
   @doc """
   Gets the top n players with the highest scores, excluding players with 0 points. Pass `true` as `n` parameter to retrieve all players.
   """
