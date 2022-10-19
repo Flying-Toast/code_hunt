@@ -4,12 +4,12 @@ defmodule CodeHunt.Telemetry do
   alias CodeHunt.Telemetry.Event
 
   def reverse_chronological_events do
-    Repo.all(from e in Event, where: e.event["kind"] != "page_view")
+    Repo.all(from e in Event, where: e.event["kind"] != "page_view" and e.event["kind"] != "claim_login_redirect")
     |> Enum.reverse()
   end
 
   def reverse_chronological_requests do
-    Repo.all(from e in Event, where: e.event["kind"] == "page_view")
+    Repo.all(from e in Event, where: e.event["kind"] == "page_view" or e.event["kind"] == "claim_login_redirect")
     |> Enum.reverse()
   end
 
@@ -43,6 +43,10 @@ defmodule CodeHunt.Telemetry do
     if !CodeHunt.Contest.caseid_is_admin(caseid) do
       create_event(%{kind: :page_view, caseid: caseid, url: url})
     end
+  end
+
+  def track_claim_login_redirect(url) do
+    create_event(%{kind: :claim_login_redirect, url: url})
   end
 
   defp create_event(event) do

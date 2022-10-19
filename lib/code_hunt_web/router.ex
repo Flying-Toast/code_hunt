@@ -24,7 +24,11 @@ defmodule CodeHuntWeb.Router do
 
   def require_login(conn, _opts) do
     if !conn.assigns.me_player do
-      conn = put_session(conn, "return_to_url", Phoenix.Controller.current_path(conn))
+      path = Phoenix.Controller.current_path(conn)
+      conn = put_session(conn, "return_to_url", path)
+      if path =~ CodeHuntWeb.Router.Helpers.code_drop_path(conn, :claim, "") do
+        CodeHunt.Telemetry.track_claim_login_redirect(path)
+      end
 
       redirect(conn, to: CodeHuntWeb.Router.Helpers.page_path(conn, :login_prompt))
       |> halt()

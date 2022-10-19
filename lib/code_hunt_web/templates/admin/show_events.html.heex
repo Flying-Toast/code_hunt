@@ -32,6 +32,9 @@
 
             "page_view" ->
               "#{event["caseid"]} VISITS #{event["url"]}"
+
+            "claim_login_redirect" ->
+              "LOGIN REDIRECT FROM CLAIM PAGE #{event["url"]}"
           end
         %>
       </td>
