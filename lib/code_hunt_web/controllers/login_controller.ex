@@ -2,6 +2,11 @@ defmodule CodeHuntWeb.LoginController do
   use CodeHuntWeb, :controller
 
   def login(conn, _params) do
+    return_url = get_session(conn, "return_to_url")
+    if return_url != nil and return_url =~ CodeHuntWeb.Router.Helpers.code_drop_path(conn, :claim, "") do
+        CodeHunt.Telemetry.track_claim_sso_redirect(return_url)
+    end
+
     redirect(conn, external: "https://login.case.edu/cas/login?service=#{Routes.login_url(conn, :auth)}")
   end
 
