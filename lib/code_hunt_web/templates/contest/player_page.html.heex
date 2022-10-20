@@ -7,7 +7,7 @@
 
 <%= if @show_form || @player.msg != "" do %>
   <br>
-  <h2>Bio:</h2>
+  <h2>Message:</h2>
   <%= if @show_form do %>
     <% action = Routes.contest_path(@conn, :update_message) %>
     <form method="post" action={action}>
