@@ -27,7 +27,8 @@ body {
             <%=
               Routes.code_drop_url(@conn, :claim, encoded)
               |> EQRCode.encode()
-              |> EQRCode.svg(width: 175)
+              |> EQRCode.png(width: 500)
+              |> then(fn x -> ~s(<img width="175" height="175" src="data:image/png;base64,#{Base.encode64 x}">) end)
               |> raw()
             %>
           </td>
