@@ -19,9 +19,11 @@ defmodule CodeHunt.Site do
   end
 
   def mod_message_seen(msg) do
-    msg
-    |> ModMessage.changeset(%{seen: true})
-    |> Repo.update()
+    if !msg.seen do
+      msg
+      |> ModMessage.changeset(%{seen: true, seen_date: DateTime.now!("Etc/UTC")})
+      |> Repo.update()
+    end
   end
 
   def list_mod_messages() do

@@ -1,22 +1,22 @@
 <p>
-	<%= link "New mod message", to: Routes.admin_path(@conn, :mod_message_form) %>
+  <%= link "New mod message", to: Routes.admin_path(@conn, :mod_message_form) %>
 </p>
 
 <ul>
-	<%= for msg <- @messages do %>
-		<% delete_action = Routes.admin_path(@conn, :delete_mod_message) %>
-		<li>
-			<%= if msg.seen do %>
-				<span class="highlight">(SEEN)</span>
-			<% end %>
-			For <%= msg.player.caseid %>: <span class="secondary"><%= msg.message %></span>
-			<form style="display:inline;" method="post" action={delete_action}>
-				<%= csrf_input_tag(delete_action) %>
-				<input type="hidden" name="id" value={msg.id}>
-				<input type="submit" value="Delete" class="light-bg">
-			</form>
-		</li>
-	<% end %>
+  <%= for msg <- @messages do %>
+    <% delete_action = Routes.admin_path(@conn, :delete_mod_message) %>
+    <li>
+      <%= if msg.seen do %>
+        <span class="highlight">(SEEN <%= msg.seen_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %>)</span>
+      <% end %>
+      For <%= msg.player.caseid %>: <span class="secondary"><%= msg.message %></span>
+      <form style="display:inline;" method="post" action={delete_action}>
+        <%= csrf_input_tag(delete_action) %>
+        <input type="hidden" name="id" value={msg.id}>
+        <input type="submit" value="Delete" class="light-bg">
+      </form>
+    </li>
+  <% end %>
 </ul>
 
 <%= link "Back", to: Routes.admin_path(@conn, :index) %>
