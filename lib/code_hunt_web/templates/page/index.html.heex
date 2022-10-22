@@ -14,4 +14,4 @@
   <p class="important"><%= mod_message.message %></p>
 <% end %>
 
-<a id="bt" href={Routes.contest_path(@conn, :leaderboard)}>QWERTY</a>
+<a id="bt" class={if !@seen_leaderboard, do: "clickme"} href={Routes.contest_path(@conn, :leaderboard)}>QWERTY</a>
