@@ -2,7 +2,7 @@
 
 <p>You have <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
 <%= if @remaining_quota == 0 do %>
-  <p>More agents are required for mission 2 to begin; you will be notified shortly when it starts.</p>
+  <p>More agents are required for the next mission to begin; you will be notified shortly when it starts.</p>
   <p>You may continue to collect tokens in the meantime.</p>
 <% else %>
   <p>To complete your first mission, you must find <%= @remaining_quota %> more.</p>
