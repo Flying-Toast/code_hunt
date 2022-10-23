@@ -1,9 +1,15 @@
 <h1 class="scramble">Greetings, Agent <%= @me_player.caseid %></h1>
 
-<p>You have <%= @num_claimed %> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
+<p>You have <span class="highlight"><%= @num_claimed %></span> <%= if @num_claimed == 1, do: "token", else: "tokens" %>.</p>
 <%= if @remaining_quota == 0 do %>
-  <p>More agents are required for the next mission to begin; you will be notified shortly when it starts.</p>
-  <p>You may continue to collect tokens in the meantime.</p>
+  <%= if CodeHunt.Missions.mission_active?(@me_player.mission) do %>
+    <p>Mission objective <%= link @me_player.mission.name, to: Routes.mission_path(@conn, :show_objective), class: "secondary" %> is availible.</p>
+  <% else %>
+    <p>
+      Your have completed your mission - you will be notified when the next mission begins.
+      You may continue to collect tokens in the meantime.
+    </p>
+  <% end %>
 <% else %>
   <p>To complete your first mission, you must find <%= @remaining_quota %> more.</p>
 <% end %>

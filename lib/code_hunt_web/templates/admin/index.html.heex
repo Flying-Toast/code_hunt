@@ -6,6 +6,7 @@
   <li><%= link "Request log", to: Routes.admin_path(@conn, :show_requests) %></li>
   <li><%= link "Ban/Unban", to: Routes.admin_path(@conn, :ban_form) %></li>
   <li><%= link "Mod messages", to: Routes.admin_path(@conn, :show_mod_messages) %></li>
+  <li><%= link "Missions", to: Routes.mission_path(@conn, :show_missions) %></li>
 </ul>
 
 <%= link "Home", to: Routes.page_path(@conn, :index) %>

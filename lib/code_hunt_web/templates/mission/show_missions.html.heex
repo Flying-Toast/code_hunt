@@ -1,0 +1,9 @@
+<p><%= link "New mission", to: Routes.mission_path(@conn, :new_mission_form) %></p>
+
+<ul>
+  <%= for mission <- @missions do %>
+    <li><%= link "#{mission.name} (#{mission.id})", to: Routes.mission_path(@conn, :show_mission, mission.id) %></li>
+  <% end %>
+</ul>
+
+<%= link "Back", to: Routes.admin_path(@conn, :index) %>

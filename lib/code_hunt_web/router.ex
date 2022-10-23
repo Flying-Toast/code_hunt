@@ -19,6 +19,14 @@ defmodule CodeHuntWeb.Router do
         nil
       end
 
+    me =
+      if CodeHunt.Missions.mission_active?(me.mission) do
+        me
+      else
+        {:ok, me} = CodeHunt.Contest.update_player(me, %{mission_id: nil})
+        me
+      end
+
     assign(conn, :me_player, me)
   end
 
@@ -93,6 +101,7 @@ defmodule CodeHuntWeb.Router do
     get "/claim/:secret_id", CodeDropController, :claim
     get "/top", ContestController, :leaderboard
     get "/all", ContestController, :full_leaderboard
+    get "/objective", MissionController, :show_objective
     get "/agent/:caseid", ContestController, :msg
     post "/post-msg", ContestController, :update_message
   end
@@ -115,6 +124,14 @@ defmodule CodeHuntWeb.Router do
       get "/form", AdminController, :mod_message_form
       post "/create", AdminController, :create_mod_message
       post "/delete", AdminController, :delete_mod_message
+    end
+
+    scope "/missions" do
+      get "/", MissionController, :show_missions
+      get "/mission/:id", MissionController, :show_mission
+      get "/form", MissionController, :new_mission_form
+      post "/create", MissionController, :create_mission
+      get "/drops/:mission_id", MissionController, :show_mission_drops
     end
   end
 

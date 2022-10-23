@@ -1,13 +1,14 @@
 defmodule CodeHunt.Hunting.CodeDrop do
   use Ecto.Schema
   import Ecto.Changeset
-  alias CodeHunt.{Contest, Hunting}
+  alias CodeHunt.{Contest, Hunting, Missions}
 
   schema "code_drops" do
     field :claim_date, :utc_datetime
     field :secret_id, :binary
     belongs_to :player, Contest.Player
     belongs_to :code_sheet, Hunting.CodeSheet
+    belongs_to :mission, Missions.Mission
 
     timestamps(type: :utc_datetime)
   end
@@ -15,7 +16,7 @@ defmodule CodeHunt.Hunting.CodeDrop do
   @doc false
   def changeset(code_drop, attrs) do
     code_drop
-    |> cast(attrs, [:claim_date, :secret_id, :player_id, :code_sheet_id])
+    |> cast(attrs, [:claim_date, :secret_id, :player_id, :code_sheet_id, :mission_id])
     |> validate_required([:secret_id])
   end
 end

@@ -1,0 +1,28 @@
+<% action = Routes.mission_path(@conn, :create_mission) %>
+
+<form method="post" action={action}>
+  <%= csrf_input_tag(action) %>
+  <div>
+    <label for="mission_name">Mission name:</label>
+    <input type="text" name="mission_name" class="light-bg">
+    <br>
+    <label for="num_drops"># mission drops:</label>
+    <input type="text" name="num_drops" class="light-bg">
+    <br>
+    <label for="release_in_minutes">Release details in N minutes:</label>
+    <input type="text" name="release_in_minutes" class="light-bg">
+    <br>
+    <label for="duration_hours">Mission duration (hours):</label>
+    <input type="text" name="duration_hours" class="light-bg">
+    <br>
+    <label for="details">Details:</label>
+    <br>
+    <textarea name="details" class="light-bg" rows="7" cols="40"></textarea>
+    <br>
+    <label for="player_caseids">Players (CaseIDs, newline/whitespace-separated):</label>
+    <br>
+    <textarea class="light-bg" name="player_caseids" rows="10" cols="8"></textarea>
+    <br>
+  </div>
+  <input type="submit" value="Submit" class="light-bg">
+</form>

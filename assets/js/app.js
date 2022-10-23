@@ -32,7 +32,26 @@ function scrambleEffect(element, finalText) {
 	}, 1);
 }
 
+function typeEffect(element, finalText) {
+	const delay = 75;
+	let i = 0;
+	element.textContent = "";
+
+	let timer = setInterval(() => {
+		element.textContent += finalText[i++];
+		if (i == finalText.length) {
+			clearInterval(timer);
+		}
+	}, delay + (Math.random() * (delay / 3)) * Math.random() * 2 - 1);
+}
+
 addEventListener("load", () => {
 	Array.from(document.querySelectorAll(".scramble"))
 		.forEach(i => scrambleEffect(i, i.innerText));
+
+	Array.from(document.querySelectorAll(".type-out"))
+		.forEach(i => {
+			i.style.visibility = "visible";
+			typeEffect(i, i.innerText);
+		});
 });

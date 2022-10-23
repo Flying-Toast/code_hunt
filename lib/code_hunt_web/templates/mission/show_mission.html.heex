@@ -1,0 +1,14 @@
+<h1>Mission "<%= @mission.name %>" (<%= @mission.id %>)</h1>
+
+<p>Ends at <%= @mission.end_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %>.</p>
+
+<%= link "Mission drops", to: Routes.mission_path(@conn, :show_mission_drops, @mission.id) %>
+
+<h2>Players:</h2>
+<ul>
+  <%= for player <- @mission.players do %>
+    <li><%= player.caseid %></li>
+  <% end %>
+</ul>
+
+<%= link "Back", to: Routes.mission_path(@conn, :show_missions) %>

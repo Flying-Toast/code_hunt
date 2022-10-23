@@ -1,7 +1,7 @@
 defmodule CodeHunt.Contest.Player do
   use Ecto.Schema
   import Ecto.Changeset
-  alias CodeHunt.{Hunting, Site}
+  alias CodeHunt.{Hunting, Site, Missions}
 
   schema "players" do
     field :caseid, :string
@@ -10,6 +10,7 @@ defmodule CodeHunt.Contest.Player do
     field :msg, :string, default: ""
     has_many :code_drops, Hunting.CodeDrop
     has_many :mod_messages, Site.ModMessage
+    belongs_to :mission, Missions.Mission
 
     timestamps(type: :utc_datetime)
   end
@@ -17,7 +18,7 @@ defmodule CodeHunt.Contest.Player do
   @doc false
   def changeset(player, attrs) do
     player
-    |> cast(attrs, [:caseid, :banned, :msg, :ban_reason])
+    |> cast(attrs, [:caseid, :banned, :msg, :ban_reason, :mission_id])
     |> validate_required([:caseid])
     |> validate_length(:msg, max: 300)
   end

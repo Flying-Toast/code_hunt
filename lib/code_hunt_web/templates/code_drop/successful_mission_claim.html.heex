@@ -1,0 +1,7 @@
+<h1>Objective: <span class="secondary"><%= @mission.name %></span></h1>
+
+<p>Well done - you have found a token for your mission. Please dispose of the QR code now.</p>
+
+<p>You can continue to collect tokens until the mission is over.</p>
+
+<p><%= link "Back", to: Routes.page_path(@conn, :index) %></p>
