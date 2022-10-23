@@ -144,11 +144,11 @@ textarea {
 
 @keyframes clickme {
 	0% {
-		color: var(--highlight-color);
+		color: var(--secondary-color);
 	}
 
 	100% {
-		color: var(--secondary-color);
+		color: var(--highlight-color);
 	}
 }
 
