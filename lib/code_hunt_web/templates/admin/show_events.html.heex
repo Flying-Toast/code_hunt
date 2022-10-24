@@ -18,8 +18,14 @@
             "rescan" ->
               "#{event["scanner"]} RESCANS CODE #{event["drop_id"]}, OWNED BY #{event["owner"]}"
 
+            "inactive_mission_scan" ->
+              "#{event["scanner"]} SCANS INACTIVE MISSION CODE #{event["drop_id"]}"
+
             "good_claim" ->
               "#{event["scanner"]} CLAIMS CODE #{event["drop_id"]}"
+
+            "good_mission_claim" ->
+              "#{event["scanner"]} CLAIMS MISSION CODE #{event["drop_id"]}"
 
             "mission_complete" ->
               "#{event["caseid"]} COMPLETES MISSION #{event["mission_num"]}"
