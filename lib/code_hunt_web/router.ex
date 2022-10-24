@@ -20,7 +20,7 @@ defmodule CodeHuntWeb.Router do
       end
 
     me =
-      if is_nil(me.mission) or CodeHunt.Missions.mission_active?(me.mission) do
+      if is_nil(me) or is_nil(me.mission) or CodeHunt.Missions.mission_active?(me.mission) do
         me
       else
         CodeHunt.Missions.create_trophy(me, me.mission)
