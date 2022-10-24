@@ -50,6 +50,7 @@ defmodule CodeHunt.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:httpoison, "~> 1.8"},
       {:eqrcode, "~> 0.1.10"},
+      {:logger_file_backend, "~> 0.0.13"},
       {:tzdata, "~> 1.1"}
     ]
   end

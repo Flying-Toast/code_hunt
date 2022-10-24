@@ -30,9 +30,14 @@ config :esbuild,
   ]
 
 # Configures Elixir's Logger
-config :logger, :console,
+config :logger,
+  backends: [:console, {LoggerFileBackend, :error_log}],
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+config :logger, :error_log,
+  path: "./error.log",
+  level: :error
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
