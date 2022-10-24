@@ -9,7 +9,9 @@ defmodule CodeHuntWeb.MissionController do
   end
 
   def show_mission(conn, %{"id" => id}) do
-    render(conn, "show_mission.html", mission: Missions.get_mission(id))
+    mission = Missions.get_mission(id)
+    num_unclaimed = Missions.unscanned_tokens_remaining(mission)
+    render(conn, "show_mission.html", mission: mission, unscanned_count: num_unclaimed)
   end
 
   def new_mission_form(conn, _params) do
@@ -59,7 +61,9 @@ defmodule CodeHuntWeb.MissionController do
 
   def show_objective(conn, _params) do
     if Missions.mission_active?(conn.assigns.me_player.mission) do
-      render(conn, "objective.html", mission: conn.assigns.me_player.mission)
+      mission = CodeHunt.Repo.preload(conn.assigns.me_player.mission, [:drops])
+      num_unscanned = Missions.unscanned_tokens_remaining(mission)
+      render(conn, "objective.html", mission: mission, remaining_unscanned_count: num_unscanned)
     else
       render(conn, "not_in_mission.html")
     end

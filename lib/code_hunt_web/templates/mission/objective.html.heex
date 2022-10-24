@@ -2,6 +2,7 @@
 
 <%= if DateTime.diff(@mission.details_release_date, DateTime.now!("Etc/UTC")) <= 0 do %>
   <p>This mission will end at <%= @mission.end_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>.</p>
+  <p><%= @remaining_unscanned_count %>/<%= length(@mission.drops) %> tokens remain.</p>
   <h2>Details:</h2>
   <p><%= @mission.details %></p>
 <% else %>

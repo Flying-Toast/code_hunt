@@ -21,6 +21,10 @@ defmodule CodeHunt.Missions do
     |> Repo.insert()
   end
 
+  def unscanned_tokens_remaining(mission) do
+    Repo.one(from d in Hunting.CodeDrop, where: d.mission_id == ^mission.id and is_nil(d.player_id), select: count())
+  end
+
   def num_trophies(player) do
     Repo.one!(from t in Trophy, where: t.player_id == ^player.id, select: count())
   end

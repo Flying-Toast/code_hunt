@@ -2,6 +2,8 @@
 
 <%= link "Mission drops", to: Routes.mission_path(@conn, :show_mission_drops, @mission.id) %>
 
+<p><%= @unscanned_count %>/<%= length(@mission.drops) %> drops remaining</p>
+
 <p>Ends at <%= @mission.end_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %>.</p>
 <p>Details released at <%= @mission.details_release_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %>.</p>
 
