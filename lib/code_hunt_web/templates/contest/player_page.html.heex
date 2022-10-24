@@ -1,12 +1,13 @@
 <h1>== <%= @player.caseid %> ==</h1>
-<% score = CodeHunt.Contest.player_score(@player) %>
-<h2><%= score %> <%= if score == 1, do: "token", else: "tokens" %></h2>
+
 <%= if @earliest_claim_or_nil do %>
   <h2>Agent since <%= @earliest_claim_or_nil |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %></h2>
 <% end %>
 
+<% score = CodeHunt.Contest.player_score(@player) %>
+<p><span class="highlight"><%= score %></span> <%= if score == 1, do: "token", else: "tokens" %>.</p>
+
 <%= if @show_form || @player.msg != "" do %>
-  <br>
   <h2>Message:</h2>
   <%= if @show_form do %>
     <% action = Routes.contest_path(@conn, :update_message) %>
@@ -20,6 +21,16 @@
     <p class="secondary"><%= @player.msg %></p>
   <% end %>
   <br>
+<% end %>
+
+<%= if @player.trophies do %>
+  <h2>Trophies:</h2>
+  <%= for trophy <- @player.trophies do %>
+    <% mission_score = CodeHunt.Missions.num_drops_claimed_in_mission(@player.id, trophy.mission.id) %>
+    <%= if mission_score > 0 do %>
+      <p>- Mission <span class="secondary"><%= trophy.mission.name %></span>: <span class="highlight"><%= mission_score %></span> <%= if mission_score == 1, do: "token", else: "tokens" %> in mission</p>
+    <% end %>
+  <% end %>
 <% end %>
 
 <p><%= link "Back", to: Routes.contest_path(@conn, :leaderboard) %></p>

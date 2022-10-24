@@ -1,6 +1,6 @@
 defmodule CodeHuntWeb.PageController do
   use CodeHuntWeb, :controller
-  alias CodeHunt.{Contest, Site, Telemetry}
+  alias CodeHunt.{Contest, Site, Telemetry, Missions}
 
   def index(conn, _params) do
     if conn.assigns.me_player.banned do
@@ -8,6 +8,7 @@ defmodule CodeHuntWeb.PageController do
       render(conn, "banned.html", ban_reason: ban_reason)
     else
       num_claimed = Contest.player_score(conn.assigns.me_player)
+      num_trophies = Missions.num_trophies(conn.assigns.me_player)
       remaining_quota = max(Contest.points_needed_for_mission_1() - num_claimed, 0)
       mod_messages = Site.mod_messages_for(conn.assigns.me_player)
       for msg <- mod_messages, do: Site.mod_message_seen(msg)
@@ -17,6 +18,7 @@ defmodule CodeHuntWeb.PageController do
         conn,
         "index.html",
         num_claimed: num_claimed,
+        num_trophies: num_trophies,
         remaining_quota: remaining_quota,
         mod_messages: mod_messages,
         seen_leaderboard: seen_leaderboard

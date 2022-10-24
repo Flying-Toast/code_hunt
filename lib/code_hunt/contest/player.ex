@@ -10,6 +10,7 @@ defmodule CodeHunt.Contest.Player do
     field :msg, :string, default: ""
     has_many :code_drops, Hunting.CodeDrop
     has_many :mod_messages, Site.ModMessage
+    has_many :trophies, Missions.Trophy
     belongs_to :mission, Missions.Mission
 
     timestamps(type: :utc_datetime)

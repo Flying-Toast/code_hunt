@@ -21,15 +21,15 @@ defmodule CodeHunt.Contest do
 
   def get_player(id) do
     Repo.get(Player, id)
-    |> Repo.preload([:code_drops, :mod_messages, :mission])
+    |> Repo.preload([:code_drops, :mod_messages, :mission, :trophies, trophies: :mission])
   end
 
   def get_player_by_caseid!(caseid) do
-    Repo.one!(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops, :mod_messages, :mission])
+    Repo.one!(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops, :mod_messages, :mission, :trophies, trophies: :mission])
   end
 
   defp get_player_by_caseid_if_exists(caseid) do
-    Repo.one(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops, :mod_messages, :mission])
+    Repo.one(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops, :mod_messages, :mission, :trophies, trophies: :mission])
   end
 
   def points_needed_for_mission_1, do: 5
@@ -118,6 +118,7 @@ defmodule CodeHunt.Contest do
   def update_player(%Player{} = player, attrs) do
     player
     |> Player.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update!()
+    |> Repo.preload([:trophies])
   end
 end

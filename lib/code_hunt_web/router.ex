@@ -20,11 +20,11 @@ defmodule CodeHuntWeb.Router do
       end
 
     me =
-      if CodeHunt.Missions.mission_active?(me.mission) do
+      if is_nil(me.mission) or CodeHunt.Missions.mission_active?(me.mission) do
         me
       else
-        {:ok, me} = CodeHunt.Contest.update_player(me, %{mission_id: nil})
-        me
+        CodeHunt.Missions.create_trophy(me, me.mission)
+        CodeHunt.Contest.update_player(me, %{mission_id: nil})
       end
 
     assign(conn, :me_player, me)

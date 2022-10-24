@@ -1,8 +1,7 @@
 defmodule CodeHunt.Missions do
   import Ecto.Query, warn: false
-  alias CodeHunt.Repo
-
-  alias CodeHunt.Missions.Mission
+  alias CodeHunt.{Repo, Hunting}
+  alias CodeHunt.Missions.{Mission, Trophy}
 
   def mission_active?(mission) do
     mission != nil and :gt == DateTime.compare(mission.end_date, DateTime.utc_now())
@@ -10,6 +9,20 @@ defmodule CodeHunt.Missions do
 
   def assigned_to_mission?(player, mission) do
     player.mission_id == mission.id
+  end
+
+  def num_drops_claimed_in_mission(player_id, mission_id) do
+    Repo.one(from d in Hunting.CodeDrop, where: d.player_id == ^player_id and d.mission_id == ^mission_id, select: count())
+  end
+
+  def create_trophy(player, mission) do
+    %Trophy{}
+    |> Trophy.changeset(%{player_id: player.id, mission_id: mission.id})
+    |> Repo.insert()
+  end
+
+  def num_trophies(player) do
+    Repo.one!(from t in Trophy, where: t.player_id == ^player.id, select: count())
   end
 
   def get_mission(id) do
