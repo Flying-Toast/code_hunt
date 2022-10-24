@@ -68,6 +68,7 @@ defmodule CodeHuntWeb.MissionController do
   def show_mission_drops(conn, %{"mission_id" => mission_id}) do
     conn
     |> put_root_layout(false)
-    |> render("show_mission_drops.html", mission: Missions.get_mission(mission_id))
+    |> put_view(CodeHuntWeb.CodeDropView)
+    |> render("show_sheet.html", drops: Missions.get_mission(mission_id).drops, is_for_mission: true)
   end
 end
