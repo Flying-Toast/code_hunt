@@ -7,6 +7,11 @@
 <% score = CodeHunt.Contest.player_score(@player) %>
 <p><span class="highlight"><%= score %></span> <%= if score == 1, do: "token", else: "tokens" %>.</p>
 
+<%= if @player.caseid == "aig28" do %>
+  <h2>Achievements:</h2>
+  <p>- <span class="secondary">EM0J1 H4CK3R</span>: Wields 1337 emoji skillz 😎</p>
+<% end %>
+
 <%= if @show_form || @player.msg != "" do %>
   <h2>Message:</h2>
   <%= if @show_form do %>
