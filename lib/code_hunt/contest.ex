@@ -24,6 +24,15 @@ defmodule CodeHunt.Contest do
     |> Repo.preload([:code_drops, :mod_messages, :mission, :trophies, trophies: :mission])
   end
 
+  defp create_player!(attrs) do
+    Telemetry.track_user_creation(attrs.caseid)
+
+    %Player{}
+    |> Player.changeset(attrs)
+    |> Repo.insert!()
+    |> Repo.preload([:code_drops, :mod_messages, :mission, :trophies, trophies: :mission])
+  end
+
   def get_player_by_caseid!(caseid) do
     Repo.one!(from p in Player, where: p.caseid == ^caseid, preload: [:code_drops, :mod_messages, :mission, :trophies, trophies: :mission])
   end
@@ -45,14 +54,6 @@ defmodule CodeHunt.Contest do
   def list_players() do
     Repo.all(Player)
     |> Repo.preload([:code_drops])
-  end
-
-  defp create_player!(attrs) do
-    Telemetry.track_user_creation(attrs.caseid)
-
-    %Player{}
-    |> Player.changeset(attrs)
-    |> Repo.insert!()
   end
 
   def player_score(player) do
