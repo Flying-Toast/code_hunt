@@ -17,10 +17,10 @@ defmodule CodeHuntWeb.MissionController do
   end
 
   def create_mission(conn, %{"player_caseids" => player_caseids, "mission_name" => mission_name, "num_drops" => num_drops, "details" => details, "release_in_minutes" => release_in_minutes, "duration_hours" => duration_hours}) do
-    players = player_caseids
-              |> String.split()
-              |> Enum.uniq()
-              |> Enum.map(&Contest.get_player_by_caseid!/1)
+    player_caseids = player_caseids
+                     |> String.split()
+                     |> Enum.uniq()
+    players = Enum.map(player_caseids, &Contest.get_player_by_caseid!/1)
 
     num_drops = String.to_integer(num_drops)
     release_in_minutes = String.to_integer(release_in_minutes)
@@ -43,7 +43,7 @@ defmodule CodeHuntWeb.MissionController do
         text(conn, "Some players still in onboarding:\n#{Enum.join(caseids_in_onboarding, "\n")}")
 
       true ->
-        {:ok, mission} = Missions.create_mission(mission_name, details, release_time, end_date)
+        {:ok, mission} = Missions.create_mission(mission_name, details, release_time, end_date, player_caseids)
         for _ <- 1..num_drops do
           Hunting.create_code_drop(%{mission_id: mission.id})
         end

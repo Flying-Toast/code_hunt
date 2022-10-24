@@ -34,9 +34,9 @@ defmodule CodeHunt.Missions do
     Repo.all(Mission, preload: [:players, :drops])
   end
 
-  def create_mission(name, details, release_date, end_date) do
+  def create_mission(name, details, release_date, end_date, original_caseids) do
     %Mission{}
-    |> Mission.changeset(%{name: name, details: details, details_release_date: release_date, end_date: end_date})
+    |> Mission.changeset(%{name: name, details: details, details_release_date: release_date, end_date: end_date, original_caseids: original_caseids})
     |> Repo.insert()
   end
 end

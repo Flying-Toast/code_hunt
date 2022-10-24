@@ -10,8 +10,8 @@
 
 <h2>Players:</h2>
 <ul>
-  <%= for player <- @mission.players do %>
-    <li><%= player.caseid %></li>
+  <%= for caseid <- @mission.original_caseids do %>
+    <li><%= caseid %></li>
   <% end %>
 </ul>
 
