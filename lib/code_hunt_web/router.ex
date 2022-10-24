@@ -23,7 +23,9 @@ defmodule CodeHuntWeb.Router do
       if is_nil(me) or is_nil(me.mission) or CodeHunt.Missions.mission_active?(me.mission) do
         me
       else
-        CodeHunt.Missions.create_trophy(me, me.mission)
+        if CodeHunt.Missions.num_drops_claimed_in_mission(me.id, me.mission.id) > 0 do
+          CodeHunt.Missions.create_trophy(me, me.mission)
+        end
         CodeHunt.Contest.update_player(me, %{mission_id: nil})
       end
 
