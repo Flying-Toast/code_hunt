@@ -3,7 +3,7 @@
 <form method="post" action={action}>
   <%= csrf_input_tag(action) %>
   <div>
-    <label for="mission_name">Mission name:</label>
+    <label for="mission_name">Mission name (don't include sensitive info; the mission name is visible before details are released!):</label>
     <input type="text" name="mission_name" class="light-bg">
     <br>
     <label for="num_drops"># mission drops:</label>
