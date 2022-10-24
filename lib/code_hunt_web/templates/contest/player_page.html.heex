@@ -9,7 +9,7 @@
 
 <%= if @player.caseid == "aig28" do %>
   <h2>Achievements:</h2>
-  <p>- <span class="secondary">EM0J1 H4CK3R</span>: Wields 1337 emoji skillz 😎</p>
+  <p>- <span class="highlight">EM0J1 H4CK3R</span>: Wields 1337 emoji skillz 😎</p>
 <% end %>
 
 <%= if @show_form || @player.msg != "" do %>
@@ -33,7 +33,7 @@
   <%= for trophy <- @player.trophies do %>
     <% mission_score = CodeHunt.Missions.num_drops_claimed_in_mission(@player.id, trophy.mission.id) %>
     <%= if mission_score > 0 do %>
-      <p>- Mission <span class="secondary"><%= trophy.mission.name %></span>: <span class="highlight"><%= mission_score %></span> <%= if mission_score == 1, do: "token", else: "tokens" %> in mission</p>
+      <p>- Mission <span class="highlight"><%= trophy.mission.name %></span>: <span class="highlight"><%= mission_score %></span> <%= if mission_score == 1, do: "token", else: "tokens" %> in mission</p>
     <% end %>
   <% end %>
 <% end %>
