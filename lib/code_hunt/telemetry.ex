@@ -57,6 +57,13 @@ defmodule CodeHunt.Telemetry do
     end
   end
 
+  def track_objective_view_before_mission_start(player, mission) do
+    event_map = %{kind: :locked_mission_view, caseid: player.caseid, mission_id: mission.id}
+    if !Repo.exists?(from e in Event, where: e.event == ^event_map) do
+      create_event(event_map)
+    end
+  end
+
   def track_claim_login_redirect(url) do
     create_event(%{kind: :claim_login_redirect, url: url})
   end

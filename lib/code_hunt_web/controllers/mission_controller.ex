@@ -1,7 +1,7 @@
 defmodule CodeHuntWeb.MissionController do
   require EEx
   use CodeHuntWeb, :controller
-  alias CodeHunt.{Missions, Contest, Hunting}
+  alias CodeHunt.{Missions, Contest, Hunting, Telemetry}
 
   def show_missions(conn, _params) do
     missions = Missions.list_missions()
@@ -63,6 +63,9 @@ defmodule CodeHuntWeb.MissionController do
     if Missions.mission_active?(conn.assigns.me_player.mission) do
       mission = CodeHunt.Repo.preload(conn.assigns.me_player.mission, [:drops])
       num_unscanned = Missions.unscanned_tokens_remaining(mission)
+      if :lt == DateTime.compare(DateTime.utc_now(), mission.details_release_date) do
+        Telemetry.track_objective_view_before_mission_start(conn.assigns.me_player, mission)
+      end
       render(conn, "objective.html", mission: mission, remaining_unscanned_count: num_unscanned)
     else
       render(conn, "not_in_mission.html")

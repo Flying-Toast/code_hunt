@@ -44,6 +44,9 @@
 
             "claim_sso_redirect" ->
               "SSO REDIRECT FROM LOGIN PAGE FOR CLAIM #{event["url"]}"
+
+            "locked_mission_view" ->
+              "#{event["caseid"]} VIEWS LOCKED OBJECTIVE FOR MISSION #{event["mission_id"]}"
           end
         %>
       </td>
