@@ -1,9 +1,9 @@
-<h1>Mission Objective: <span class="secondary type-out"><%= @mission.name %></span></h1>
+<h1>Mission: <span class="secondary type-out"><%= @mission.name %></span></h1>
 
 <%= if DateTime.diff(@mission.details_release_date, DateTime.now!("Etc/UTC")) <= 0 do %>
   <p>This mission will end at <%= @mission.end_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>.</p>
-  <p><%= @remaining_unscanned_count %>/<%= length(@mission.drops) %> tokens remain.</p>
-  <h2>Details:</h2>
+  <p><span class="highlight"><%= @remaining_unscanned_count %></span>/<span class="highlight"><%= length(@mission.drops) %></span> tokens remain.</p>
+  <h2>Objective:</h2>
   <p><%= @mission.details %></p>
 <% else %>
   <p>Details for this mission will be released at <%= @mission.details_release_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %></p>
