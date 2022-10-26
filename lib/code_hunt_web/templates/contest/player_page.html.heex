@@ -45,4 +45,4 @@
   </section>
 <% end %>
 
-<p><a href="javascript:history.back()">Back</a></p>
+<p><%= link "Back", to: Routes.contest_path(@conn, :leaderboard) %></p>

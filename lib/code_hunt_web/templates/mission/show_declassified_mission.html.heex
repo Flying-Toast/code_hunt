@@ -23,4 +23,4 @@ until <%= @mission.details_release_date |> DateTime.shift_zone("America/New_York
   <% end %>
 </section>
 
-<p><a href="javascript:history.back()">Back</a></p>
+<p><%= link "Home", to: Routes.page_path(@conn, :index) %></p>
