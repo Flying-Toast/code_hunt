@@ -18,6 +18,7 @@ h1 {
 
 h2 {
   font-size: 18px;
+  margin-bottom: 0;
 }
 
 * {
@@ -169,4 +170,8 @@ ul li {
 
 ul {
 	margin: 0;
+}
+
+section {
+	margin: 2em 0;
 }

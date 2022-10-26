@@ -8,35 +8,41 @@
 <p><span class="highlight"><%= score %></span> <%= if score == 1, do: "token", else: "tokens" %>.</p>
 
 <%= if @player.caseid == "aig28" do %>
-  <h2>Achievements:</h2>
-  <ul>
-    <li><span class="highlight">EM0J1 H4CK3R</span>: 1337 emoji skillz 😎</li>
-  </ul>
-<% end %>
-
-<%= if @show_form || @player.msg != "" do %>
-  <h2>Message:</h2>
-  <%= if @show_form do %>
-    <% action = Routes.contest_path(@conn, :update_message) %>
-    <form method="post" action={action}>
-      <%= csrf_input_tag(action) %>
-      <textarea name="new_message" class="light-bg" rows="7" cols="40" spellcheck="false"><%= @player.msg %></textarea>
-      <br>
-      <input type="submit" value="Update" class="light-bg">
-    </form>
-  <% else %>
-    <p class="secondary"><%= @player.msg %></p>
-  <% end %>
+  <section>
+    <h2>Achievements:</h2>
+    <ul>
+      <li><span class="highlight">EM0J1 H4CK3R</span>: 1337 emoji skillz 😎</li>
+    </ul>
+  </section>
 <% end %>
 
 <%= if length(@player.trophies) > 0 do %>
-  <h2>Trophies:</h2>
-  <ul>
-    <%= for trophy <- @player.trophies do %>
-      <% mission_score = CodeHunt.Missions.num_drops_claimed_in_mission(@player.id, trophy.mission.id) %>
-      <li>Mission <%= link trophy.mission.name, to: Routes.mission_path(@conn, :show_declassified_mission, trophy.mission.id), class: "highlight" %>: <span class="highlight"><%= mission_score %></span> <%= if mission_score == 1, do: "token", else: "tokens" %> in mission</li>
+  <section>
+    <h2>Trophies:</h2>
+    <ul>
+      <%= for trophy <- @player.trophies do %>
+        <% mission_score = CodeHunt.Missions.num_drops_claimed_in_mission(@player.id, trophy.mission.id) %>
+        <li>Mission <%= link trophy.mission.name, to: Routes.mission_path(@conn, :show_declassified_mission, trophy.mission.id), class: "highlight" %>: <span class="highlight"><%= mission_score %></span> <%= if mission_score == 1, do: "token", else: "tokens" %> in mission</li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
+<%= if @show_form || @player.msg != "" do %>
+  <section>
+    <h2>Message:</h2>
+    <%= if @show_form  and false do %>
+      <% action = Routes.contest_path(@conn, :update_message) %>
+      <form method="post" action={action}>
+        <%= csrf_input_tag(action) %>
+        <textarea name="new_message" class="light-bg" rows="7" cols="40" spellcheck="false"><%= @player.msg %></textarea>
+        <br>
+        <input type="submit" value="Update" class="light-bg">
+      </form>
+    <% else %>
+      <p class="secondary"><%= @player.msg %></p>
     <% end %>
-  </ul>
+  </section>
 <% end %>
 
 <p><a href="javascript:history.back()">Back</a></p>
