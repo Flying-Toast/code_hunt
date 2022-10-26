@@ -1,7 +1,7 @@
 <%= if @ban_reason != "" do %>
   <p class="important"><%= @ban_reason %></p>
 <% end %>
-<p>You have proven your inability to carry out the mission and have been removed from the QWERTY system.</p>
+<p>You have proven your inability to fulfill QWERTY's purpose and have been removed from the QWERTY system.</p>
 <p>
   <%= link "Goodbye", to: Routes.login_path(@conn, :logout) %>.
 </p>
