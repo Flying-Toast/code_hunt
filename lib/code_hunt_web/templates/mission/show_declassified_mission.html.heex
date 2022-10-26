@@ -10,13 +10,17 @@ until <%= @mission.details_release_date |> DateTime.shift_zone("America/New_York
 
 <section>
   <h2>Agents:</h2>
-  <% num_agents = length(@mission.original_caseids) %>
-  <%= num_agents %> <%= if num_agents == 1, do: "agent", else: "agents" %> carried out the objective:
-  <ul>
-    <%= for caseid <- @mission.original_caseids do %>
-      <li><%= link caseid, to: Routes.contest_path(@conn, :msg, caseid) %></li>
-    <% end %>
-  </ul>
+  <% num_agents = length(@participating_caseids) %>
+  <%= if num_agents == 0 do %>
+    No agents completed the objective.
+  <% else %>
+      <%= num_agents %> <%= if num_agents == 1, do: "agent", else: "agents" %> carried out the objective:
+      <ul>
+        <%= for caseid <- @participating_caseids do %>
+          <li><%= link caseid, to: Routes.contest_path(@conn, :msg, caseid) %></li>
+        <% end %>
+      </ul>
+  <% end %>
 </section>
 
 <p><a href="javascript:history.back()">Back</a></p>

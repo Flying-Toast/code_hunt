@@ -1,6 +1,6 @@
 defmodule CodeHunt.Missions do
   import Ecto.Query, warn: false
-  alias CodeHunt.{Repo, Hunting}
+  alias CodeHunt.{Repo, Hunting, Contest}
   alias CodeHunt.Missions.{Mission, Trophy}
 
   def mission_active?(mission) do
@@ -13,6 +13,14 @@ defmodule CodeHunt.Missions do
 
   def num_drops_claimed_in_mission(player_id, mission_id) do
     Repo.one(from d in Hunting.CodeDrop, where: d.player_id == ^player_id and d.mission_id == ^mission_id, select: count())
+  end
+
+  def caseids_who_participated_in_mission(mission) do
+    mission.original_caseids
+    |> Enum.map(fn caseid -> Repo.one(from p in Contest.Player, where: p.caseid == ^caseid) end)
+    |> Enum.filter(fn player -> num_drops_claimed_in_mission(player.id, mission.id) > 0 end)
+    |> Enum.reject(fn player -> player.banned end)
+    |> Enum.map(fn player -> player.caseid end)
   end
 
   def create_trophy(player, mission) do

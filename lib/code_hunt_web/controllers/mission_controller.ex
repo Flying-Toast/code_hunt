@@ -25,7 +25,8 @@ defmodule CodeHuntWeb.MissionController do
       |> render("404.html")
       |> halt()
     else
-      render(conn, "show_declassified_mission.html", mission: mission)
+      participating_caseids = Missions.caseids_who_participated_in_mission(mission)
+      render(conn, "show_declassified_mission.html", mission: mission, participating_caseids: participating_caseids)
     end
   end
 
