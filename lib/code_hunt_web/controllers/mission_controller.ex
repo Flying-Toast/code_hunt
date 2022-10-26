@@ -14,6 +14,21 @@ defmodule CodeHuntWeb.MissionController do
     render(conn, "show_mission.html", mission: mission, unscanned_count: num_unclaimed)
   end
 
+  def show_declassified_mission(conn, %{"id" => id}) do
+    mission = Missions.get_mission(id)
+    if Missions.mission_active?(mission) do
+      # dont reveal in-progress missions
+      conn
+      |> put_status(404)
+      |> put_root_layout(false)
+      |> put_view(CodeHuntWeb.ErrorView)
+      |> render("404.html")
+      |> halt()
+    else
+      render(conn, "show_declassified_mission.html", mission: mission)
+    end
+  end
+
   def new_mission_form(conn, _params) do
     render(conn, "mission_form.html")
   end

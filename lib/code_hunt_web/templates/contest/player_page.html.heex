@@ -32,7 +32,7 @@
   <h2>Trophies:</h2>
   <%= for trophy <- @player.trophies do %>
     <% mission_score = CodeHunt.Missions.num_drops_claimed_in_mission(@player.id, trophy.mission.id) %>
-    <p>- Mission <span class="highlight"><%= trophy.mission.name %></span>: <span class="highlight"><%= mission_score %></span> <%= if mission_score == 1, do: "token", else: "tokens" %> in mission</p>
+    <p>- Mission <%= link trophy.mission.name, to: Routes.mission_path(@conn, :show_declassified_mission, trophy.mission.id), class: "highlight" %>: <span class="highlight"><%= mission_score %></span> <%= if mission_score == 1, do: "token", else: "tokens" %> in mission</p>
   <% end %>
 <% end %>
 

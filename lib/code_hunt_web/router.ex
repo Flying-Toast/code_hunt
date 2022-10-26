@@ -104,6 +104,7 @@ defmodule CodeHuntWeb.Router do
     get "/top", ContestController, :leaderboard
     get "/all", ContestController, :full_leaderboard
     get "/objective", MissionController, :show_objective
+    get "/mission/:id", MissionController, :show_declassified_mission
     get "/agent/:caseid", ContestController, :msg
     post "/post-msg", ContestController, :update_message
   end

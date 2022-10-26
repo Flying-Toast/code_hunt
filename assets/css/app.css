@@ -162,3 +162,11 @@ textarea {
 .type-out {
 	visibility: hidden;
 }
+
+ul li {
+	list-style: square;
+}
+
+ul {
+	margin: 0;
+}
