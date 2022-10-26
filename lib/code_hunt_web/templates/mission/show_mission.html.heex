@@ -1,6 +1,7 @@
 <h1>Mission "<%= @mission.name %>" (<%= @mission.id %>)</h1>
 
 <%= link "Mission drops", to: Routes.mission_path(@conn, :show_mission_drops, @mission.id) %>
+<%= link "Calling cards", to: Routes.mission_path(@conn, :calling_cards, @mission.id) %>
 
 <p><%= @unscanned_count %>/<%= length(@mission.drops) %> drops remaining</p>
 

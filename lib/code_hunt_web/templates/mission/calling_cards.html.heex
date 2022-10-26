@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CallingCards</title>
+  <style>
+body {
+  margin: 8px;
+}
+
+@page {
+  margin: 0;
+  size: letter;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.vert-center {
+  vertical-align: middle;
+  display: table-cell;
+}
+
+td {
+  width: 175px;
+  height: 175px;
+  display: inline-block;
+  overflow: hidden;
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  background-color: white;
+  filter: invert(100%);
+}
+  </style>
+</head>
+
+<body>
+  <table>
+    <%= for row <- Enum.chunk_every(@caseids, 2) do %>
+      <tr>
+        <%= for caseid <- row do %>
+          <td class="vert-center"><%= caseid %></td>
+          <td>
+            <%=
+              Routes.mission_url(@conn, :show_objective)
+              |> EQRCode.encode()
+              |> EQRCode.png(width: 500)
+              |> then(fn x -> ~s(<img width="175" height="175" src="data:image/png;base64,#{Base.encode64 x}">) end)
+              |> raw()
+            %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</body>
+</html>

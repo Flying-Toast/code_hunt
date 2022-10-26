@@ -135,6 +135,7 @@ defmodule CodeHuntWeb.Router do
       get "/form", MissionController, :new_mission_form
       post "/create", MissionController, :create_mission
       get "/drops/:mission_id", MissionController, :show_mission_drops
+      get "/calling-cards/:mission_id", MissionController, :calling_cards
     end
   end
 

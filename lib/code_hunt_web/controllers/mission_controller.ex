@@ -94,4 +94,12 @@ defmodule CodeHuntWeb.MissionController do
     |> put_view(CodeHuntWeb.CodeDropView)
     |> render("show_sheet.html", drops: Missions.get_mission(mission_id).drops, is_for_mission: true)
   end
+
+  def calling_cards(conn, %{"mission_id" => id}) do
+    mission = Missions.get_mission(id)
+
+    conn
+    |> put_root_layout(false)
+    |> render("calling_cards.html", caseids: mission.original_caseids)
+  end
 end
