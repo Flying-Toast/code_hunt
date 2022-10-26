@@ -31,7 +31,7 @@
 <%= if @show_form || @player.msg != "" do %>
   <section>
     <h2>Message:</h2>
-    <%= if @show_form  and false do %>
+    <%= if @show_form do %>
       <% action = Routes.contest_path(@conn, :update_message) %>
       <form method="post" action={action}>
         <%= csrf_input_tag(action) %>
