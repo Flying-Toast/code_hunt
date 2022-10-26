@@ -4,8 +4,8 @@
 
 <p><%= @unscanned_count %>/<%= length(@mission.drops) %> drops remaining</p>
 
-<p>End date: <%= @mission.end_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %>.</p>
-<p>Details release date: <%= @mission.details_release_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %>.</p>
+<p>End date: <%= @mission.end_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>.</p>
+<p>Details release date: <%= @mission.details_release_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>.</p>
 
 <h2>Details:</h2>
 <p><%= @mission.details %></p>
