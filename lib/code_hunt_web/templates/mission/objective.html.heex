@@ -1,12 +1,12 @@
 <h1>Mission: <span class="secondary type-out"><%= @mission.name %></span></h1>
 
-<%= if DateTime.diff(@mission.details_release_date, DateTime.now!("Etc/UTC")) <= 0 do %>
-  <p>This mission will end at <%= @mission.end_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>.</p>
+<%= if DateTime.diff(@mission.details_release_date, DateTime.utc_now()) <= 0 do %>
+  <p>This mission will end at <%= format_datetime(@mission.end_date, :with_seconds) %>.</p>
   <p><span class="highlight"><%= @remaining_unscanned_count %></span>/<span class="highlight"><%= length(@mission.drops) %></span> tokens remain.</p>
   <h2>Objective:</h2>
   <p><%= @mission.details %></p>
 <% else %>
-  <p>Details for this mission will be released at <%= @mission.details_release_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %></p>
+  <p>Details for this mission will be released at <%= format_datetime(@mission.details_release_date, :with_seconds) %></p>
 <% end %>
 
 <%= link "Back", to: Routes.page_path(@conn, :index) %>

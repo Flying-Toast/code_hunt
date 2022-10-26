@@ -1,7 +1,7 @@
 <h1>Mission: <%= @mission.name %> <span class="important">&lt;DECLASSIFIED&gt;</span></h1>
 
-This mission ran from <%= @mission.details_release_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>
-until <%= @mission.end_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p") %>.
+This mission ran from <%= format_datetime(@mission.details_release_date, :with_seconds) %>
+until <%= format_datetime(@mission.end_date, :with_seconds) %>.
 
 <section>
   <h2>Objective:</h2>

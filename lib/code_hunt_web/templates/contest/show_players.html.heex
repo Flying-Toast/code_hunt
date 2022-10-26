@@ -14,7 +14,7 @@
         <%= if CodeHunt.Contest.is_admin(player), do: "(ADMIN)" %>
         <%= if player.banned, do: "(BANNED)" %>
       </td>
-      <td><%= player.inserted_at |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %></td>
+      <td><%= format_datetime(player.inserted_at, :no_seconds) %></td>
     </tr>
   <% end %>
 </table>

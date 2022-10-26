@@ -23,7 +23,7 @@
 
       <td>
         <%= if drop.player do %>
-          <%= drop.claim_date |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %>
+          <%= format_datetime(drop.claim_date, :no_seconds) %>
         <% else %>
           --
         <% end %>

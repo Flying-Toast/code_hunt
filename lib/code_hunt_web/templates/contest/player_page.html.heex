@@ -1,7 +1,7 @@
 <h1>== <%= @player.caseid %> ==</h1>
 
 <%= if @earliest_claim_or_nil do %>
-  <h2>Agent since <%= @earliest_claim_or_nil |> DateTime.shift_zone("America/New_York") |> elem(1) |> Calendar.strftime("%m/%d/%y %-I:%M %p") %></h2>
+  <h2>Agent since <%= format_datetime(@earliest_claim_or_nil, :no_seconds) %></h2>
 <% end %>
 
 <% score = CodeHunt.Contest.player_score(@player) %>

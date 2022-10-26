@@ -39,6 +39,20 @@ defmodule CodeHuntWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+
+      def format_datetime(datetime, :with_seconds) do
+        datetime
+        |> DateTime.shift_zone("America/New_York")
+        |> elem(1)
+        |> Calendar.strftime("%m/%d/%y %-I:%M::%S %p")
+      end
+
+      def format_datetime(datetime, :no_seconds) do
+        datetime
+        |> DateTime.shift_zone("America/New_York")
+        |> elem(1)
+        |> Calendar.strftime("%m/%d/%y %-I:%M %p")
+      end
     end
   end
 
