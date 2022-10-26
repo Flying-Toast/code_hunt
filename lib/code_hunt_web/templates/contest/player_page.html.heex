@@ -9,7 +9,9 @@
 
 <%= if @player.caseid == "aig28" do %>
   <h2>Achievements:</h2>
-  <p>- <span class="highlight">EM0J1 H4CK3R</span>: 1337 emoji skillz 😎</p>
+  <ul>
+    <li><span class="highlight">EM0J1 H4CK3R</span>: 1337 emoji skillz 😎</li>
+  </ul>
 <% end %>
 
 <%= if @show_form || @player.msg != "" do %>
@@ -25,15 +27,16 @@
   <% else %>
     <p class="secondary"><%= @player.msg %></p>
   <% end %>
-  <br>
 <% end %>
 
 <%= if length(@player.trophies) > 0 do %>
   <h2>Trophies:</h2>
-  <%= for trophy <- @player.trophies do %>
-    <% mission_score = CodeHunt.Missions.num_drops_claimed_in_mission(@player.id, trophy.mission.id) %>
-    <p>- Mission <%= link trophy.mission.name, to: Routes.mission_path(@conn, :show_declassified_mission, trophy.mission.id), class: "highlight" %>: <span class="highlight"><%= mission_score %></span> <%= if mission_score == 1, do: "token", else: "tokens" %> in mission</p>
-  <% end %>
+  <ul>
+    <%= for trophy <- @player.trophies do %>
+      <% mission_score = CodeHunt.Missions.num_drops_claimed_in_mission(@player.id, trophy.mission.id) %>
+      <li>Mission <%= link trophy.mission.name, to: Routes.mission_path(@conn, :show_declassified_mission, trophy.mission.id), class: "highlight" %>: <span class="highlight"><%= mission_score %></span> <%= if mission_score == 1, do: "token", else: "tokens" %> in mission</li>
+    <% end %>
+  </ul>
 <% end %>
 
 <p><a href="javascript:history.back()">Back</a></p>
