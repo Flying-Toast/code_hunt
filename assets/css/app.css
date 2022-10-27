@@ -32,14 +32,6 @@ h2 {
   -webkit-appearance: none;
 }
 
-#bt {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  color: var(--secondary-color);
-  font-size: 200%;
-}
-
 .pre {
   white-space: pre;
 }
@@ -141,23 +133,6 @@ input[type="text"], textarea {
 
 textarea {
   margin-bottom: 4px;
-}
-
-@keyframes clickme {
-	0% {
-		color: var(--secondary-color);
-	}
-
-	100% {
-		color: var(--highlight-color);
-	}
-}
-
-.clickme {
-	animation-name: clickme;
-	animation-duration: 0.7s;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
 }
 
 .type-out {

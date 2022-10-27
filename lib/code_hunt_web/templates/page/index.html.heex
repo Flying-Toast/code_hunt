@@ -1,6 +1,9 @@
 <h1 class="scramble">Greetings, Agent <%= @me_player.caseid %></h1>
 
-<p>You have <span class="highlight"><%= @num_claimed %></span> <%= if @num_claimed == 1, do: "token", else: "tokens" %><%= if @num_trophies > 0 do %>, <span class="highlight"><%= @num_trophies %></span> <%= if @num_trophies == 1, do: "trophy", else: "trophies" %>.<% else %>.<% end %></p>
+<p>
+  Welcome to <a class="secondary" href={Routes.contest_path(@conn, :leaderboard)}>QWERTY</a>.
+  You have <span class="highlight"><%= @num_claimed %></span> <%= if @num_claimed == 1, do: "token", else: "tokens" %><%= if @num_trophies > 0 do %>, <span class="highlight"><%= @num_trophies %></span> <%= if @num_trophies == 1, do: "trophy", else: "trophies" %>.<% else %>.<% end %>
+</p>
 
 <%= if @remaining_quota == 0 do %>
   <%= if CodeHunt.Missions.mission_active?(@me_player.mission) do %>
@@ -15,10 +18,9 @@
   <p>To complete your first mission, you must find <%= @remaining_quota %> more.</p>
 <% end %>
 
-<%= link "Log out", to: Routes.login_path(@conn, :logout) %>
+<a href={Routes.login_path(@conn, :logout)}>Log out</a>
 
 <%= for mod_message <- @mod_messages do %>
   <p class="important"><%= mod_message.message %></p>
 <% end %>
 
-<a id="bt" class={if !@seen_leaderboard, do: "clickme"} href={Routes.contest_path(@conn, :leaderboard)}>QWERTY</a>
