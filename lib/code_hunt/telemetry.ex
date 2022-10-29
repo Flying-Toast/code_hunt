@@ -33,6 +33,10 @@ defmodule CodeHunt.Telemetry do
     create_event(%{kind: :inactive_mission_scan, scanner: player.caseid, drop_id: drop.id})
   end
 
+  def track_early_mission_scan(drop, player) do
+    create_event(%{kind: :early_mission_scan, scanner: player.caseid, drop_id: drop.id})
+  end
+
   def track_mission_completion(player, mission_num) do
     create_event(%{kind: :mission_complete, caseid: player.caseid, mission_num: mission_num})
   end

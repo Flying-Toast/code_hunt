@@ -21,6 +21,9 @@
             "inactive_mission_scan" ->
               "#{event["scanner"]} SCANS INACTIVE MISSION CODE #{event["drop_id"]}"
 
+            "early_mission_scan" ->
+              "#{event["scanner"]} SCANS NOT-YET-STARTED MISSION CODE #{event["drop_id"]}"
+
             "good_claim" ->
               "#{event["scanner"]} CLAIMS CODE #{event["drop_id"]}"
 

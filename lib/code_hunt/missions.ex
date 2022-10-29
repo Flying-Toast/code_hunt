@@ -7,6 +7,10 @@ defmodule CodeHunt.Missions do
     mission != nil and :gt == DateTime.compare(mission.end_date, DateTime.utc_now())
   end
 
+  def details_released?(mission) do
+    :gt == DateTime.compare(DateTime.utc_now(), mission.details_release_date)
+  end
+
   def assigned_to_mission?(player, mission) do
     player.mission_id == mission.id
   end

@@ -32,6 +32,11 @@ defmodule CodeHuntWeb.CodeDropController do
         end
 
 
+      not Missions.details_released?(drop.mission) ->
+        Telemetry.track_early_mission_scan(drop, conn.assigns.me_player)
+        render(conn, "early_mission_scan.html")
+
+
       not Missions.mission_active?(drop.mission) ->
         Telemetry.track_inactive_mission_scan(drop, conn.assigns.me_player)
         render(conn, "mission_ended.html")
