@@ -6,7 +6,7 @@
     <title>QWERTY</title>
     <%= csrf_meta_tag() %>
     <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/css/app.css")}>
-    <script src={Routes.static_path(@conn, "/assets/js/app.js")}></script>
+    <script defer src={Routes.static_path(@conn, "/assets/js/app.js")}></script>
     <link rel="icon" href="/favicon.ico">
   </head>
   <body>
