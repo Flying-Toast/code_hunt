@@ -1,4 +1,4 @@
-FROM hexpm/elixir:1.13.2-erlang-24.3.3-debian-bullseye-20210902-slim as builder
+FROM hexpm/elixir:1.14.1-erlang-24.3.3-debian-bullseye-20210902-slim as builder
 
 RUN apt-get update -y && apt-get install -y build-essential git && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
