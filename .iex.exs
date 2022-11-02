@@ -1,4 +1,5 @@
 import Ecto.Query
+import Ecto.Changeset
 alias CodeHunt.{
   Repo,
   Missions,
