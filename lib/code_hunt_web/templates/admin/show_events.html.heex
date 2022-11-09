@@ -50,6 +50,9 @@
 
             "locked_mission_view" ->
               "#{event["caseid"]} VIEWS LOCKED OBJECTIVE FOR MISSION #{event["mission_id"]}"
+
+            "comment" ->
+              "#{event["author"]} POSTS COMMENT FOR #{event["receiver"]}: `#{event["body"]}`"
           end
         %>
       </td>

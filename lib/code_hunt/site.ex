@@ -1,7 +1,7 @@
 defmodule CodeHunt.Site do
   import Ecto.Query, warn: false
   import Ecto.Changeset
-  alias CodeHunt.Repo
+  alias CodeHunt.{Repo, Telemetry}
   alias CodeHunt.Site.{ModMessage, Comment}
 
   def create_mod_message(player, message) do
@@ -37,6 +37,7 @@ defmodule CodeHunt.Site do
 
   def post_comment(author, receiver, attrs) do
     Repo.delete_all(from c in Comment, where: c.receiver_id == ^receiver.id and c.author_id == ^author.id)
+    Telemetry.track_comment_post(author.caseid, receiver.caseid, attrs.body)
 
     %Comment{}
     |> change(author_id: author.id, receiver_id: receiver.id)

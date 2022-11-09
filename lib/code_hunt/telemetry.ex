@@ -76,6 +76,10 @@ defmodule CodeHunt.Telemetry do
     create_event(%{kind: :claim_sso_redirect, url: url})
   end
 
+  def track_comment_post(author_caseid, receiver_caseid, body) do
+    create_event(%{kind: :comment, author: author_caseid, receiver: receiver_caseid, body: body})
+  end
+
   defp create_event(event) do
     event.kind
 
