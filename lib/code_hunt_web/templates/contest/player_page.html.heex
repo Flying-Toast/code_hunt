@@ -45,4 +45,44 @@
   </section>
 <% end %>
 
+<section>
+  <h2>Bulletin:</h2>
+  <ul>
+    <%= for comment <- @comments do %>
+      <%= if comment.accepted or assigns.me_player.caseid == @player.caseid do %>
+        <li>
+          <%= comment.author.caseid %>: <%= comment.body %>
+          <%= if assigns.me_player.caseid == @player.caseid do %>
+            <%= if !comment.accepted do %>
+              <% action = Routes.contest_path(@conn, :accept_comment) %>
+              <form method="post" action={action} class="button-form">
+                <%= csrf_input_tag(action) %>
+                <input type="hidden" name="comment_id" value={comment.id}>
+                <input type="submit" value="Allow" class="light-bg">
+              </form>
+            <% end %>
+
+            <% action = Routes.contest_path(@conn, :remove_comment) %>
+            <form method="post" action={action} class="button-form">
+              <%= csrf_input_tag(action) %>
+              <input type="hidden" name="comment_id" value={comment.id}>
+              <input type="submit" value="Reject" class="light-bg">
+            </form>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <% action = Routes.contest_path(@conn, :post_comment) %>
+  <form method="post" action={action} class="bulletin-board">
+    <%= csrf_input_tag(action) %>
+    <input type="hidden" name="receiver" value={@player.id}>
+    <textarea name="body" class="light-bg" rows="5" cols="20" maxlength="100" spellcheck="false"></textarea>
+    <br>
+    <input type="submit" value="Post" class="light-bg">
+  </form>
+  <%= get_flash(@conn, :bulletin) %>
+</section>
+
 <p><%= link "Back", to: Routes.contest_path(@conn, :leaderboard) %></p>

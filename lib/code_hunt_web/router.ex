@@ -4,6 +4,7 @@ defmodule CodeHuntWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
+    plug :fetch_live_flash
     plug :put_root_layout, {CodeHuntWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
@@ -107,6 +108,9 @@ defmodule CodeHuntWeb.Router do
     get "/mission/:id", MissionController, :show_declassified_mission
     get "/agent/:caseid", ContestController, :msg
     post "/post-msg", ContestController, :update_message
+    post "/post-bulletin", ContestController, :post_comment
+    post "/accept-bulletin", ContestController, :accept_comment
+    post "/remove-bulletin", ContestController, :remove_comment
   end
 
   scope "/admin", CodeHuntWeb do

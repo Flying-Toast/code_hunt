@@ -1,7 +1,8 @@
 defmodule CodeHunt.Site do
   import Ecto.Query, warn: false
+  import Ecto.Changeset
   alias CodeHunt.Repo
-  alias CodeHunt.Site.ModMessage
+  alias CodeHunt.Site.{ModMessage, Comment}
 
   def create_mod_message(player, message) do
     %ModMessage{}
@@ -28,5 +29,34 @@ defmodule CodeHunt.Site do
 
   def list_mod_messages() do
     Repo.all(from m in ModMessage, preload: [:player], select: m)
+  end
+
+  def comments_posted_for_user(user) do
+    Repo.all(from c in Comment, where: c.receiver_id == ^user.id, preload: [:author], order_by: [asc: :updated_at])
+  end
+
+  def post_comment(author, receiver, attrs) do
+    Repo.delete_all(from c in Comment, where: c.receiver_id == ^receiver.id and c.author_id == ^author.id)
+
+    %Comment{}
+    |> change(author_id: author.id, receiver_id: receiver.id)
+    |> change(accepted: author.id == receiver.id)
+    |> Comment.post_comment_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def get_comment!(id) do
+    Repo.get!(Comment, id)
+    |> Repo.preload([:receiver])
+  end
+
+  def accept_comment(comment) do
+    comment
+    |> change(accepted: true)
+    |> Repo.update()
+  end
+
+  def delete_comment(comment) do
+    Repo.delete(comment)
   end
 end

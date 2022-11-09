@@ -150,3 +150,12 @@ ul {
 section {
 	margin: 2em 0;
 }
+
+.button-form {
+	display: inline;
+}
+
+.bulletin-board {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}

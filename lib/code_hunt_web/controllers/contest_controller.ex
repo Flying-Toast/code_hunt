@@ -1,6 +1,6 @@
 defmodule CodeHuntWeb.ContestController do
   use CodeHuntWeb, :controller
-  alias CodeHunt.Contest
+  alias CodeHunt.{Contest, Site}
 
   def leaderboard(conn, _params) do
     leaders = Contest.get_leaders(10)
@@ -31,8 +31,9 @@ defmodule CodeHuntWeb.ContestController do
     else
       show_form = conn.assigns.me_player.caseid == caseid
       earliest_claim = Contest.time_of_first_claim_or_nil(player)
+      comments = Site.comments_posted_for_user(conn.assigns.me_player)
 
-      render(conn, "player_page.html", player: player, show_form: show_form, earliest_claim_or_nil: earliest_claim)
+      render(conn, "player_page.html", player: player, show_form: show_form, earliest_claim_or_nil: earliest_claim, comments: comments)
     end
   end
 
@@ -40,6 +41,43 @@ defmodule CodeHuntWeb.ContestController do
     if new_message != conn.assigns.me_player.msg do
       Contest.set_player_message(conn.assigns.me_player.caseid, new_message)
       CodeHunt.Telemetry.track_new_message(conn.assigns.me_player.caseid, new_message)
+    end
+
+    redirect(conn, to: Routes.contest_path(conn, :msg, conn.assigns.me_player.caseid))
+  end
+
+  def post_comment(conn, %{"body" => body, "receiver" => receiver_id}) do
+    {receiver_id, _} = Integer.parse(receiver_id)
+
+    receiver = Contest.get_player(receiver_id)
+    if receiver do
+      Site.post_comment(conn.assigns.me_player, receiver, %{body: body})
+
+      if receiver_id == conn.assigns.me_player.id do
+        conn
+      else
+        conn
+        |> put_flash(:bulletin, "Bulletin awaiting acceptance.")
+      end
+      |> redirect(to: Routes.contest_path(conn, :msg, receiver.caseid))
+    else
+      redirect(conn, to: Routes.page_path(conn, :index))
+    end
+  end
+
+  def accept_comment(conn, %{"comment_id" => comment_id}) do
+    comment = Site.get_comment!(comment_id)
+    if comment.receiver.caseid == conn.assigns.me_player.caseid do
+      Site.accept_comment(comment)
+    end
+
+    redirect(conn, to: Routes.contest_path(conn, :msg, comment.receiver.caseid))
+  end
+
+  def remove_comment(conn, %{"comment_id" => comment_id}) do
+    comment = Site.get_comment!(comment_id)
+    if comment.receiver.caseid == conn.assigns.me_player.caseid do
+      Site.delete_comment(comment)
     end
 
     redirect(conn, to: Routes.contest_path(conn, :msg, conn.assigns.me_player.caseid))
