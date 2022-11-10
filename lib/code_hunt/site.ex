@@ -32,7 +32,7 @@ defmodule CodeHunt.Site do
   end
 
   def comments_posted_for_user(user) do
-    Repo.all(from c in Comment, where: c.receiver_id == ^user.id, preload: [:author], order_by: [asc: :updated_at])
+    Repo.all(from c in Comment, where: c.receiver_id == ^user.id, preload: [:author], order_by: [asc: :inserted_at])
   end
 
   def post_comment(author, receiver, attrs) do
