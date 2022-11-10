@@ -12,6 +12,7 @@ alias CodeHunt.{
   Hunting.CodeSheet,
   Site,
   Site.ModMessage,
+  Site.Comment,
   Telemetry,
   Telemetry.Event
 }
