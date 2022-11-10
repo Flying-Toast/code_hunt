@@ -31,7 +31,7 @@ defmodule CodeHuntWeb.ContestController do
     else
       show_form = conn.assigns.me_player.caseid == caseid
       earliest_claim = Contest.time_of_first_claim_or_nil(player)
-      comments = Site.comments_posted_for_user(conn.assigns.me_player)
+      comments = Site.comments_posted_for_user(player)
 
       render(conn, "player_page.html", player: player, show_form: show_form, earliest_claim_or_nil: earliest_claim, comments: comments)
     end
