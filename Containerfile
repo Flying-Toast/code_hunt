@@ -53,6 +53,8 @@ RUN chown nobody /app
 # Only copy the final release from the build stage
 COPY --from=builder --chown=nobody:root /app/_build/prod/rel/code_hunt ./
 
+COPY .iex.exs /app/bin/
+
 USER nobody
 
 CMD ["/app/bin/server"]
