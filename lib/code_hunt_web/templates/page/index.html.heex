@@ -1,4 +1,4 @@
-<h1 class="scramble">Greetings, Agent <%= @me_player.caseid %></h1>
+<h1 class="scramble"><%= if @is_admin, do: "<a href='/admin'>", else: "" %>G<%= if @is_admin, do: "</a>", else: "" %>reetings, Agent <%= @me_player.caseid %></h1>
 
 <p>
   Welcome to <%= link "QWERTY", to: Routes.contest_path(@conn, :leaderboard) %>.
