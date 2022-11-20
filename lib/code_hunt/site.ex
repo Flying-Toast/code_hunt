@@ -41,7 +41,7 @@ defmodule CodeHunt.Site do
 
     %Comment{}
     |> change(author_id: author.id, receiver_id: receiver.id)
-    |> change(accepted: author.id == receiver.id)
+    |> change(accepted: true)
     |> Comment.post_comment_changeset(attrs)
     |> Repo.insert()
   end

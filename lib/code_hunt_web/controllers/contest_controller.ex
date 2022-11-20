@@ -53,12 +53,7 @@ defmodule CodeHuntWeb.ContestController do
     if receiver do
       Site.post_comment(conn.assigns.me_player, receiver, %{body: body})
 
-      if receiver_id == conn.assigns.me_player.id do
-        conn
-      else
-        conn
-        |> put_flash(:bulletin, "Bulletin awaiting acceptance.")
-      end
+      conn
       |> redirect(to: Routes.contest_path(conn, :msg, receiver.caseid))
     else
       redirect(conn, to: Routes.page_path(conn, :index))
