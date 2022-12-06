@@ -1,4 +1,2 @@
-<h1>Welcome to QWERTY, stranger.</h1>
-<p>Please log in to check your progress, record tokens, and view the leaderboard.</p>
-<p style="font-size:8pt"> (We had to put this because people kept discarding mission material, thinking it to be a phishing campaign.)</p>
-<%= link "Log in", to: Routes.login_path(@conn, :login) %>
+<h1>Welcome to QWERTY, Stranger.</h1>
+<p>Please <%= link "log in", to: Routes.login_path(@conn, :login) %> to check your progress, record tokens, and view the leaderboard.</p>
