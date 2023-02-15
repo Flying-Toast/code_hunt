@@ -51,7 +51,7 @@
     <%= for comment <- @comments do %>
       <%= if comment.accepted or assigns.me_player.caseid == @player.caseid do %>
         <li>
-          <%= comment.author.caseid %>: <span class="secondary"><%= comment.body %></span>
+          <%= link comment.author.caseid, to: Routes.contest_path(@conn, :msg, comment.author.caseid) %>: <span class="secondary"><%= comment.body %></span>
           <%= if assigns.me_player.caseid == @player.caseid do %>
             <%= if !comment.accepted do %>
               <% action = Routes.contest_path(@conn, :accept_comment) %>
