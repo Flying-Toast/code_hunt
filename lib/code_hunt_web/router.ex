@@ -113,7 +113,7 @@ defmodule CodeHuntWeb.Router do
     post "/remove-bulletin", ContestController, :remove_comment
   end
 
-  scope "/admin", CodeHuntWeb do
+  scope "/aaaaa", CodeHuntWeb do
     pipe_through [:browser, :admin_only]
 
     get "/", AdminController, :index
