@@ -1,17 +1,19 @@
 defmodule CodeHuntWeb.LoginController do
   use CodeHuntWeb, :controller
 
+  @service "https://singular-chebakia-3f6736.netlify.app"
+
   def login(conn, _params) do
     return_url = get_session(conn, "return_to_url")
     if return_url != nil and return_url =~ CodeHuntWeb.Router.Helpers.code_drop_path(conn, :claim, "") do
         CodeHunt.Telemetry.track_claim_sso_redirect(return_url)
     end
 
-    redirect(conn, external: "https://login.case.edu/cas/login?service=#{Routes.login_url(conn, :auth)}")
+    redirect(conn, external: "https://login.case.edu/cas/login?service=#{@service}")
   end
 
   def auth(conn, %{"ticket" => ticket}) do
-    %{status_code: 200, body: body} = HTTPoison.get!("https://login.case.edu/cas/validate?ticket=#{ticket}&service=#{Routes.login_url(conn, :auth)}")
+    %{status_code: 200, body: body} = HTTPoison.get!("https://login.case.edu/cas/validate?ticket=#{ticket}&service=#{@service}")
 
     case String.split(body, "\n", trim: true) do
       ["no"] ->
