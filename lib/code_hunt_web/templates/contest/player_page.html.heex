@@ -66,7 +66,7 @@
             <form method="post" action={action} class="button-form">
               <%= csrf_input_tag(action) %>
               <input type="hidden" name="comment_id" value={comment.id}>
-              <input type="submit" value="Reject" class="light-bg">
+              <input type="submit" value="Remove" class="light-bg">
             </form>
           <% end %>
         </li>
