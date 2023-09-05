@@ -20,7 +20,7 @@ defmodule CodeHunt.MixProject do
   def application do
     [
       mod: {CodeHunt.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :inets]
     ]
   end
 

@@ -30,10 +30,10 @@ config :esbuild,
   ]
 
 # Configures Elixir's Logger
-config :logger,
-  backends: [:console, {LoggerFileBackend, :error_log}],
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+# config :logger,
+#   backends: [:console, {LoggerFileBackend, :error_log}],
+#   format: "$time $metadata[$level] $message\n",
+#   metadata: [:request_id]
 
 config :logger, :error_log,
   path: "./error.log",
