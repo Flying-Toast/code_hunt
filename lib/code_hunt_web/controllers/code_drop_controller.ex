@@ -65,6 +65,6 @@ defmodule CodeHuntWeb.CodeDropController do
 
     conn
     |> put_root_layout(false)
-    |> render("show_sheet.html", drops: sheet.code_drops, is_for_mission: false)
+    |> render("show_sheet.html", drops: sheet.code_drops, is_for_mission: false, sheet_id: sheet.id)
   end
 end
