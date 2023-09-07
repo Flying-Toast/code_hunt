@@ -1,6 +1,6 @@
 <%= if @top_player do %>
   <% {top_caseid, top_claims} = @top_player %>
-  <h2>Top Agent: <span class="secondary"><%= top_caseid %></span> (<%= top_claims %> <%= if top_claims == 1, do: "token", else: "tokens" %> today)</h2>
+  <h2>Top Agent: <%= link top_caseid, to: Routes.contest_path(@conn, :msg, top_caseid), class: "secondary" %> (<%= top_claims %> <%= if top_claims == 1, do: "token", else: "tokens" %> today)</h2>
   <br>
 <% end %>
 <p class="pre nomargin">      |------------------|</p>
