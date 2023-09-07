@@ -24,6 +24,32 @@ defmodule CodeHunt.Contest do
     |> Repo.preload([:code_drops, :mod_messages, :mission, :trophies, trophies: :mission])
   end
 
+  def todays_top_player() do
+    today =
+      DateTime.utc_now()
+      |> DateTime.shift_zone!("America/New_York")
+      |> then(&%{&1 | hour: 0, minute: 0, second: 0})
+      |> DateTime.truncate(:second)
+
+    top_player =
+      Repo.one(
+        from d in Hunting.CodeDrop,
+        where: d.claim_date >= ^today,
+        group_by: d.player_id,
+        order_by: [desc: count(d.id), asc: min(d.claim_date)],
+        select: {d.player_id, count(d.id)},
+        limit: 1
+      )
+
+    case top_player do
+      {pid, count} ->
+        {Repo.one(from p in Player, where: p.id == ^pid, select: p.caseid), count}
+
+      nil ->
+        nil
+    end
+  end
+
   defp create_player!(attrs) do
     Telemetry.track_user_creation(attrs.caseid)
 

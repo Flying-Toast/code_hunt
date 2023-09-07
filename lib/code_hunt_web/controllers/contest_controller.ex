@@ -4,13 +4,15 @@ defmodule CodeHuntWeb.ContestController do
 
   def leaderboard(conn, _params) do
     leaders = Contest.get_leaders(10)
+    top_player = Contest.todays_top_player()
     CodeHunt.Telemetry.track_leaderboard_view(conn.assigns.me_player.caseid)
-    render(conn, "leaderboard.html", leaders: leaders, link_to_full_leaderboard: true)
+    render(conn, "leaderboard.html", leaders: leaders, link_to_full_leaderboard: true, top_player: top_player)
   end
 
   def full_leaderboard(conn, _params) do
     leaders = Contest.get_leaders(true)
-    render(conn, "leaderboard.html", leaders: leaders, link_to_full_leaderboard: false)
+    top_player = Contest.todays_top_player()
+    render(conn, "leaderboard.html", leaders: leaders, link_to_full_leaderboard: false, top_player: top_player)
   end
 
   def show_players(conn, _params) do
