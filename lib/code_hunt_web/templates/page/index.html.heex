@@ -18,7 +18,7 @@
   <p>To complete your first mission, you must find <%= @remaining_quota %> more.</p>
 <% end %>
 
-<a href={Routes.login_path(@conn, :logout)}>Log out</a>
+<%= link "Me", to: Routes.contest_path(@conn, :msg, @me_player.caseid) %> <a href={Routes.login_path(@conn, :logout)}>Log out</a>
 
 <%= for mod_message <- @mod_messages do %>
   <p class="important"><%= mod_message.message %></p>
