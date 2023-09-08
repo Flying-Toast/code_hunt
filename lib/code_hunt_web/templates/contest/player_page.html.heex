@@ -40,7 +40,7 @@
         <input type="submit" value="Update" class="light-bg">
       </form>
     <% else %>
-      <pre class="secondary"><%= @player.msg |> String.replace(~r/(\r\n|\n){3,}/, "\n\n") %></pre>
+      <pre class="secondary pre-line"><%= @player.msg |> String.replace(~r/(\r\n|\n){3,}/, "\n\n") %></pre>
     <% end %>
   </section>
 <% end %>
