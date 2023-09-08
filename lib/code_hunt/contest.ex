@@ -35,6 +35,7 @@ defmodule CodeHunt.Contest do
       Repo.one(
         from d in Hunting.CodeDrop,
         where: d.claim_date >= ^today,
+        having: count(d.id) > 1,
         group_by: d.player_id,
         order_by: [desc: count(d.id), asc: min(d.claim_date)],
         select: {d.player_id, count(d.id)},
