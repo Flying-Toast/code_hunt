@@ -73,10 +73,12 @@ defmodule CodeHuntWeb.ContestController do
 
   def remove_comment(conn, %{"comment_id" => comment_id}) do
     comment = Site.get_comment!(comment_id)
-    if comment.receiver.caseid == conn.assigns.me_player.caseid do
+    if comment.receiver_id == conn.assigns.me_player.id
+      || comment.author_id == conn.assigns.me_player.id
+    do
       Site.delete_comment(comment)
     end
 
-    redirect(conn, to: Routes.contest_path(conn, :msg, conn.assigns.me_player.caseid))
+    redirect(conn, to: Routes.contest_path(conn, :msg, comment.receiver.caseid))
   end
 end

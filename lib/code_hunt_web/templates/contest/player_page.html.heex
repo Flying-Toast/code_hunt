@@ -52,16 +52,7 @@
       <%= if comment.accepted or assigns.me_player.caseid == @player.caseid do %>
         <li>
           <%= link comment.author.caseid, to: Routes.contest_path(@conn, :msg, comment.author.caseid) %>: <span class="secondary"><%= comment.body %></span>
-          <%= if assigns.me_player.caseid == @player.caseid do %>
-            <%= if !comment.accepted do %>
-              <% action = Routes.contest_path(@conn, :accept_comment) %>
-              <form method="post" action={action} class="button-form">
-                <%= csrf_input_tag(action) %>
-                <input type="hidden" name="comment_id" value={comment.id}>
-                <input type="submit" value="Allow" class="light-bg">
-              </form>
-            <% end %>
-
+          <%= if assigns.me_player.caseid == @player.caseid || assigns.me_player.caseid == comment.author.caseid do %>
             <% action = Routes.contest_path(@conn, :remove_comment) %>
             <form method="post" action={action} class="button-form">
               <%= csrf_input_tag(action) %>
