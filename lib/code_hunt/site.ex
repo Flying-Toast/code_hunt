@@ -35,8 +35,19 @@ defmodule CodeHunt.Site do
     Repo.all(from c in Comment, where: c.receiver_id == ^user.id, preload: [:author], order_by: [asc: :inserted_at])
   end
 
+  @max_comments_per_author_per_player_page 5
   def post_comment(author, receiver, attrs) do
-    Repo.delete_all(from c in Comment, where: c.receiver_id == ^receiver.id and c.author_id == ^author.id)
+    expired_comments =
+      Repo.all(
+        from c in Comment,
+        where: c.receiver_id == ^receiver.id and c.author_id == ^author.id,
+        order_by: [desc: :inserted_at],
+        limit: 100000000,
+        offset: @max_comments_per_author_per_player_page - 1
+      )
+    for i <- expired_comments do
+      Repo.delete!(i)
+    end
     Telemetry.track_comment_post(author.caseid, receiver.caseid, attrs.body)
 
     %Comment{}
