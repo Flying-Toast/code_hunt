@@ -16,6 +16,15 @@
   </section>
 <% end %>
 
+<%= if @player.caseid == "ztb11" do %>
+  <section>
+    <h2>Achievements:</h2>
+    <ul>
+      <li><span class="highlight">Smarty Salmon</span>: don't swallow the hook!</li>
+    </ul>
+  </section>
+<% end %>
+
 <%= if length(@player.trophies) > 0 do %>
   <section>
     <h2>Trophies:</h2>
