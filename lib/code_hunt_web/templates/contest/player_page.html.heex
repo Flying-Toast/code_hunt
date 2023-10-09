@@ -1,3 +1,11 @@
+<%= if @player.caseid == "kxw589" && String.starts_with?(@player.msg, "<script>alert(1)</script>") do %>
+  <!-- hi kxw589 :p -->
+  <script>
+    addEventListener("load", function() {
+      setTimeout(() => alert(1), 100);
+    });
+  </script>
+<% end %>
 <h1>== <%= @player.caseid %> ==</h1>
 
 <%= if @earliest_claim_or_nil do %>
