@@ -1,3 +1,4 @@
+<!--
 <h1 class="scramble">Greetings, Agent <%= @me_player.caseid %></h1>
 
 <p>
@@ -23,4 +24,15 @@
 <%= for mod_message <- @mod_messages do %>
   <p class="important"><%= mod_message.message %></p>
 <% end %>
+-->
 
+<hr>
+<div>
+  <p>The QWERTY experiment has ended. Thank you for your participation.</p>
+  <p style="margin-left: 2em;">- srs266</p>
+  <p>Please <%= link "Log out", to: Routes.login_path(@conn, :logout) %> now.</p>
+</div>
+<hr>
+<p style="position: absolute; bottom: 0;">
+  <%= link "Or has it...", to: Routes.page_path(@conn, :tbc) %>?
+</p>

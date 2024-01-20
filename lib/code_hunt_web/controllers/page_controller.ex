@@ -2,6 +2,10 @@ defmodule CodeHuntWeb.PageController do
   use CodeHuntWeb, :controller
   alias CodeHunt.{Contest, Site, Missions}
 
+  def tbc(conn, _params) do
+    render(conn, "tbc.html")
+  end
+
   def index(conn, _params) do
     if conn.assigns.me_player.banned do
       ban_reason = conn.assigns.me_player.ban_reason
